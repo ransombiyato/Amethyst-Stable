@@ -1,0 +1,159 @@
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-43-                return;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-44-            }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-45-            ((LauncherActivity) launcheractivity).modpackImportLauncher.launch(null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-46-        });;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-47-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-48-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-49-    private void tryInstall(Class<? extends Fragment> fragmentClass, String tag){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-50-        if(!hasOnlineProfile()){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java:51:            hasNoOnlineProfileDialog(requireActivity());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-52-        } else {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-53-            Tools.swapFragment(requireActivity(), fragmentClass, tag, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-54-        }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-55-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java-56-}
+--
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-63-        mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), getString(R.string.discord_invite)));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-64-        mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-65-        if (hasOnlineProfile()) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-66-            mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-67-            mInstallJarButton.setOnLongClickListener(v -> {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-68-                runInstallerWithConfirmation(true);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-69-                return true;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-70-            });
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:71:        } else mInstallJarButton.setOnClickListener(v -> hasNoOnlineProfileDialog(requireActivity()));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-72-        mEditProfileButton.setOnClickListener(v -> mVersionSpinner.openProfileEditor(requireActivity()));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-73-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-74-        mPlayButton.setOnClickListener(v -> {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-75-            if (Tools.hasMods("sodium") && !(LauncherPreferences.DEFAULT_PREF.getBoolean("sodium_override", false))) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-76-                AlertDialog sodiumWarningDialog = new AlertDialog.Builder(requireContext())
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-77-                        .setTitle(R.string.sodium_warning_title)
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-78-                        .setMessage(R.string.sodium_warning_message)
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-79-                        .setNeutralButton(R.string.delete_sodium, (d,w)-> {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-80-                            Tools.deleteSodiumMods();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-81-                            ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-82-                        })
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-83-                        .create();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-84-                sodiumWarningDialog.show();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-85-            } else ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-86-        });
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-87-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-88-        mShareLogsButton.setOnClickListener((v) -> shareLog(requireContext()));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-89-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-90-        mOpenDirectoryButton.setOnClickListener((v)-> {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-91-            if (Tools.isDemoProfile(v.getContext())){ // Say a different message when on demo profile since they might see the hidden demo folder
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:92:                hasNoOnlineProfileDialog(getActivity(), getString(R.string.demo_unsupported), getString(R.string.change_account));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-93-            } else if (!hasOnlineProfile()) { // Otherwise display the generic pop-up to log in
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:94:                hasNoOnlineProfileDialog(requireActivity());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-95-            } else openPath(v.getContext(), getCurrentProfileDirectory(), false);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-96-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-97-        });
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-98-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-99-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-100-        mNewsButton.setOnLongClickListener((v)->{
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-101-            Tools.swapFragment(requireActivity(), GamepadMapperFragment.class, GamepadMapperFragment.TAG, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-102-            return true;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-103-        });
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-104-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-105-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-106-    private File getCurrentProfileDirectory() {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-107-        String currentProfile = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-108-        if(!Tools.isValidString(currentProfile)) return new File(Tools.DIR_GAME_NEW);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java-109-        LauncherProfiles.load();
+--
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-48-        view.findViewById(R.id.modded_profile_quilt).setOnClickListener((v)->
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-49-                tryInstall(QuiltInstallFragment.class, QuiltInstallFragment.TAG));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-50-        view.findViewById(R.id.modded_profile_bta).setOnClickListener((v)->
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-51-                tryInstall(BTAInstallFragment.class, BTAInstallFragment.TAG));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-52-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-53-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-54-    private void tryInstall(Class<? extends Fragment> fragmentClass, String tag){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-55-        if(!hasOnlineProfile()){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java:56:            hasNoOnlineProfileDialog(requireActivity());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-57-        } else {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-58-            Tools.swapFragment(requireActivity(), fragmentClass, tag, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-59-        }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-60-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java-61-}
+--
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java-21-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java-22-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java-23-    @Override
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java-24-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java-25-        Button mMicrosoftButton = view.findViewById(R.id.button_microsoft_authentication);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java-26-        Button mLocalButton = view.findViewById(R.id.button_local_authentication);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java-27-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java-28-        mMicrosoftButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MicrosoftLoginFragment.class, MicrosoftLoginFragment.TAG, null));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java:29:        mLocalButton.setOnClickListener(v -> hasNoOnlineProfileDialog(requireActivity(), () -> Tools.swapFragment(requireActivity(), LocalLoginFragment.class, LocalLoginFragment.TAG, null)));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java-30-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java-31-}
+--
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-242-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-243-            if (mcVersion != null) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-244-                try {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-245-                    isOlderThan13 = DateUtils.dateBefore(DateUtils.parseReleaseDate(mcVersion.releaseTime), 2012, 6, 22);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-246-                } catch (ParseException ignored) {}
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-247-            }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-248-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-249-            if (isOlderThan13) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:250:                hasNoOnlineProfileDialog(this, getString(R.string.global_error), getString(R.string.demo_versions_supported));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-251-                return false;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-252-            }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-253-        }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-254-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-255-        new MinecraftDownloader().start(
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-256-                this,
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-257-                mcVersion,
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-258-                normalizedVersionId,
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-259-                new ContextAwareDoneListener(this, normalizedVersionId)
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-260-        );
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-261-        return false;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-262-    };
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-263-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-264-    private final TaskCountListener mDoubleLaunchPreventionListener = taskCount -> {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java-265-        // Hide the notification that starts the game if there are tasks executing.
+--
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1834-        for (MinecraftAccount accountToCheck : getAllProfiles()) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1835-            if (!accountToCheck.isLocal() && !accountToCheck.isDemo()) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1836-                return true;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1837-            }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1838-        }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1839-        return false;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1840-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1841-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1842:    public static void hasNoOnlineProfileDialog(Activity activity, @Nullable Runnable run, @Nullable String customTitle, @Nullable String customMessage){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1843-        if (hasOnlineProfile() && !Tools.isDemoProfile(activity)){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1844-            if (run != null) { // Demo profile handling should be using customTitle and customMessage
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1845-                run.run();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1846-            }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1847-        } else { // If there is no online profile, show a dialog
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1848-            customTitle = customTitle == null ? activity.getString(R.string.no_minecraft_account_found) : customTitle;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1849-            customMessage = customMessage == null ? activity.getString(R.string.feature_requires_java_account) : customMessage;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1850-            dialogOnUiThread(activity, customTitle, customMessage);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1851-        }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1852-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1853-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1854-    // Some boilerplate to reduce boilerplate elsewhere
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1855:    public static void hasNoOnlineProfileDialog(Activity activity){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1856:        hasNoOnlineProfileDialog(activity, null, null, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1857-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1858:    public static void hasNoOnlineProfileDialog(Activity activity, Runnable run){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1859:        hasNoOnlineProfileDialog(activity, run, null, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1860-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1861:    public static void hasNoOnlineProfileDialog(Activity activity, String customTitle, String customMessage){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1862:        hasNoOnlineProfileDialog(activity, null, customTitle, customMessage);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1863-    }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1864-
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1865-    public static String getSelectedVanillaMcVer(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1866-        String selectedProfile = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1867-        MinecraftProfile selected = LauncherProfiles.mainProfileJson.profiles.get(selectedProfile);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1868-        if (selected == null) { // This should NEVER happen.
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1869-            throw new RuntimeException("No profile selected, how did you reach this? Go ask in the discord or github");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1870-        }
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1871-        String currentMCVersion = selected.lastVersionId;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1872-        String vanillaVersion = currentMCVersion;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1873-        File providedJsonFile = new File(Tools.DIR_HOME_VERSION + "/" + currentMCVersion + "/" + currentMCVersion + ".json");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1874-        JMinecraftVersionList.Version providedJsonVersion = null;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1875-        try {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1876-            providedJsonVersion = Tools.GLOBAL_GSON.fromJson(Tools.read(providedJsonFile.getAbsolutePath()), JMinecraftVersionList.Version.class);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java-1877-        } catch (IOException e) {

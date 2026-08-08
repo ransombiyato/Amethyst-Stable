@@ -1,0 +1,72 @@
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:214:        return mSelectecAccount != null && !mSelectecAccount.accessToken.equals("0");
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:285:        if(minecraftAccount.isLocal()) return;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:78:                String accessToken = acquireAccessToken(mIsRefresh, mAuthCode);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:80:                String xboxLiveToken = acquireXBLToken(accessToken);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:101:                acc.accessToken = mcToken;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:163:    private String acquireXBLToken(String accessToken) throws IOException, JSONException {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:170:        properties.put("RpsTicket", accessToken);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:324:            Log.w("MicrosoftLogin", "Either the Auth API was changed or this account does not own Minecraft! Assuming the latter.");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/imgcropper/RegionDecoderCropBehaviour.java:142:     * Load a scaled down version of the Bitmap that will be used for zooming and panning in the view.
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:3:import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:37:        if (!hasOnlineProfile()){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java:4:import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java:50:        if(!hasOnlineProfile()){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/NeoForgeInstallFragment.java:79:            return DownloadUtils.downloadStringCached(NEOFORGE_METADATA_URL, "neoforge_versions", input -> {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:6:import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:65:        if (hasOnlineProfile()) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:91:            if (Tools.isDemoProfile(v.getContext())){ // Say a different message when on demo profile since they might see the hidden demo folder
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:93:            } else if (!hasOnlineProfile()) { // Otherwise display the generic pop-up to log in
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java:4:import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java:55:        if(!hasOnlineProfile()){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:240:        if (false && mAccountSpinner.getSelectedAccount().isDemo()) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/AsyncVersionList.java:33:                    versionList = downloadVersionList(LauncherPreferences.PREF_VERSION_REPOS);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/AsyncVersionList.java:67:            Log.i("ExtVL","Downloaded the version list, len=" + list.versions.length);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:64:    private boolean isLocalProfile = false;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:68:     * Start the game version download process on the global executor service.
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:78:            isLocalProfile = Tools.isLocalProfile(activity);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:80:            Tools.switchDemo(Tools.isDemoProfile(activity));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:83:            isLocalProfile = true;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:89:                if(isLocalProfile || !isOnline) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:112:                downloadGame(activity, version, realVersion);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:123:     * Download the game version.
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:129:    private void downloadGame(Activity activity, JMinecraftVersionList.Version verInfo, String versionName) throws Exception {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:144:        downloadAndProcessMetadata(activity, verInfo, versionName);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:275:     * Download (if necessary) and process a version's metadata, scheduling all downloads that this
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:283:    private boolean downloadAndProcessMetadata(Activity activity, JMinecraftVersionList.Version verInfo, String versionName) throws IOException, MirrorTamperedException {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:285:        if(verInfo != null) versionJsonFile = downloadGameJson(verInfo);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:302:        if(minecraftClientInfo != null) scheduleGameJarDownload(minecraftClientInfo, versionName);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:439:    private void scheduleGameJarDownload(MinecraftClientInfo minecraftClientInfo, String versionName) throws IOException {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:23:    public String accessToken = "0"; // access token
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:48:    public boolean isLocal(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:49:        return accessToken.equals("0") && !username.startsWith("Demo.");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:52:    public boolean isDemo(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:77:            if (acc.accessToken == null) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:78:                acc.accessToken = "0";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:103:        if(isLocal()) return null;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/MinecraftAuthenticationDatabase.java:7:	public String accessToken;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:33:            account.accessToken = "0";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/NewJREUtil.java:166:    public static boolean isJavaVersionAvailableForDownload(int version) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/NewJREUtil.java:185:        if (!isJavaVersionAvailableForDownload(javaVersion)) throw new RuntimeException("This is not an available JRE version");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:221:        switchDemo(isDemoProfile(ctx));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:820:        varArgMap.put("auth_session", profile.accessToken); // For legacy versions of MC
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:821:        varArgMap.put("auth_access_token", profile.accessToken);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:848:        if(profile.isDemo()) mcArguments += " --demo";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1800:    public static void switchDemo(boolean isDemo){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1801:        if(isDemo) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1824:    public static boolean isDemoProfile(Context ctx){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1826:        return currentProfile != null && currentProfile.isDemo();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1829:    public static boolean isLocalProfile(Context ctx){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1831:        return currentProfile == null || currentProfile.isLocal();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1833:    public static boolean hasOnlineProfile(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1835:            if (!accountToCheck.isLocal() && !accountToCheck.isDemo()) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1843:        if (hasOnlineProfile() && !Tools.isDemoProfile(activity)){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/BTADownloadTask.java:65:        String btaJson = String.format(BASE_JSON, mBtaVersion.versionName, mBtaVersion.downloadUrl, btaVersionId);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/modpacks/api/ModpackInstaller.java:49:            DownloadUtils.ensureSha1(modpackFile, versionHash, (Callable<Void>) () -> {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/modpacks/api/ModpackInstaller.java:50:                DownloadUtils.downloadFileMonitored(versionUrl, modpackFile, downloadBuffer,
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/modpacks/api/CurseforgeApi.java:123:            versionUrls[i] = downloadUrl.getAsString();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/ForgeUtils.java:35:            return DownloadUtils.downloadStringCached(FORGE_METADATA_URL, "forge_versions", input -> {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/BTAUtils.java:125:        public BTAVersion(String versionName, String downloadUrl, String iconUrl) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/LWJGL3ifyDownloadTask.java:89:                throw new IOException("Unable to download"+deps.get(i).versionName+" from " + deps.get(i).downloadUrl, e);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/LWJGL3ifyDownloadTask.java:113:        if (!modJar.exists()) throw new IOException("Failed to download LWJGL3ify "+ mLWJGL3ifyMod.versionName);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/LWJGL3ifyUtils.java:256:        public LWJGL3ifyMod(String versionName, String downloadUrl, String iconUrl, String id, String hash, ModDetail.Dependencies[] dependencies) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/FabriclikeUtils.java:40:            return DownloadUtils.downloadStringCached(String.format(GAME_METADATA_URL, mApiUrl), mCachePrefix+"_game_versions",

@@ -1,0 +1,790 @@
+app_pojavlauncher/src/main/java/com/ipaulpro/afilechooser/FileListAdapter.java:30: * @author paulburke (ipaulpro)
+app_pojavlauncher/src/main/java/com/kdt/mcgui/ProgressLayout.java:37:    public static final String AUTHENTICATE_MICROSOFT = "authenticate_microsoft";
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:36:import net.kdt.pojavlaunch.authenticator.listener.DoneListener;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:37:import net.kdt.pojavlaunch.authenticator.listener.ErrorListener;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:38:import net.kdt.pojavlaunch.authenticator.listener.ProgressListener;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:39:import net.kdt.pojavlaunch.authenticator.microsoft.PresentedException;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:40:import net.kdt.pojavlaunch.authenticator.microsoft.MicrosoftBackgroundLogin;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:44:import net.kdt.pojavlaunch.value.MinecraftAccount;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:65:    private MinecraftAccount mSelectecAccount = null;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:70:    /* Current animator to for the login bar, is swapped when changing step */
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:71:    private ObjectAnimator mLoginBarAnimator;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:72:    private float mLoginBarWidth = -1;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:74:    /* Paint used to display the bottom bar, to show the login progress. */
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:75:    private final Paint mLoginBarPaint = new Paint();
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:77:    /* When a login is performed in the background, we need to know where we are */
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:79:    private int mLoginStep = 0;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:81:    /* Login listeners */
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:83:        // Animate the login bar, cosmetic purposes only
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:84:        mLoginStep = step;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:85:        if(mLoginBarAnimator != null){
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:86:            mLoginBarAnimator.cancel();
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:87:            mLoginBarAnimator.setFloatValues( mLoginBarWidth, (getWidth()/MAX_LOGIN_STEP * mLoginStep));
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:89:            mLoginBarAnimator = ObjectAnimator.ofFloat(this, "LoginBarWidth", mLoginBarWidth, (getWidth()/MAX_LOGIN_STEP * mLoginStep));
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:91:        mLoginBarAnimator.start();
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:95:        Toast.makeText(getContext(), R.string.main_login_done, Toast.LENGTH_SHORT).show();
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:98:        // Like login twice on the same mc account...
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:100:            if(mcAccountName.equals(account.username)) return;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:105:        mAccountList.add(account.username);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:110:        mLoginBarPaint.setColor(Color.RED);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:126:    /* Triggered when we need to do microsoft login */
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:127:    private final ExtraListener<Uri> mMicrosoftLoginListener = (key, value) -> {
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:128:        mLoginBarPaint.setColor(getResources().getColor(R.color.minebutton_color));
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:129:        new MicrosoftBackgroundLogin(false, value.getQueryParameter("code")).performLogin(
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:134:    /* Triggered when we need to perform mojang login */
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:135:    private final ExtraListener<String[]> mMojangLoginListener = (key, value) -> {
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:137:            MinecraftAccount account = new MinecraftAccount();
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:138:            account.username = value[0];
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:145:            mDoneListener.onLoginDone(account);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:155:        mLoginBarPaint.setColor(getResources().getColor(R.color.minebutton_color));
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:156:        mLoginBarPaint.setStrokeWidth(getResources().getDimensionPixelOffset(R.dimen._2sdp));
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:162:        ExtraCore.addExtraListener(ExtraConstants.MOJANG_LOGIN_TODO, mMojangLoginListener);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:163:        ExtraCore.addExtraListener(ExtraConstants.MICROSOFT_LOGIN_TODO, mMicrosoftLoginListener);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:178:            performLogin(mSelectecAccount);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:187:        if(mLoginBarWidth == -1) mLoginBarWidth = getWidth(); // Initial draw
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:189:        float bottom = getHeight() - mLoginBarPaint.getStrokeWidth()/2;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:190:        canvas.drawLine(0, bottom, mLoginBarWidth, bottom, mLoginBarPaint);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:207:    public void setLoginBarWidth(float value){
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:208:        mLoginBarWidth = value;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:212:    /** Allows checking whether we have an online account */
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:213:    public boolean isAccountOnline(){
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:214:        return mSelectecAccount != null && !mSelectecAccount.accessToken.equals("0");
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:217:    public MinecraftAccount getSelectedAccount(){
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:221:    public int getLoginState(){
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:222:        return mLoginStep;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:225:    public boolean isLoginDone(){
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:226:        return mLoginStep >= MAX_LOGIN_STEP;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:266:        AccountAdapter accountAdapter = new AccountAdapter(getContext(), R.layout.item_minecraft_account, accountArray);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:267:        accountAdapter.setDropDownViewResource(R.layout.item_minecraft_account);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:273:            performLogin(mSelectecAccount);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:280:    private void performLogin(MinecraftAccount minecraftAccount){
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:282:        if(!Tools.isOnline(getContext())){
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:285:        if(minecraftAccount.isLocal()) return;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:287:        mLoginBarPaint.setColor(getResources().getColor(R.color.minebutton_color));
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:288:        if(minecraftAccount.isMicrosoft){
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:290:                // Perform login only if needed
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:291:                new MicrosoftBackgroundLogin(true, minecraftAccount.msaRefreshToken)
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:292:                        .performLogin(mProgressListener, mDoneListener, mErrorListener);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:300:        MinecraftAccount selectedAccount;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:303:            selectedAccount = PojavProfile.getCurrentProfileContent(getContext(), mAccountList.get(position));
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:307:            if (selectedAccount == null){
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:313:                        .setMessage(R.string.login_again)
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:314:                        .setPositiveButton(R.string.delete_account_and_login, (dialog, which) -> {
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:326:            selectedAccount = PojavProfile.getCurrentProfileContent(getContext(), null);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:327:            int spinnerPosition = selectedAccount == null
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:329:                    : mAccountList.indexOf(selectedAccount.username);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:333:        mSelectecAccount = selectedAccount;
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:372:                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_minecraft_account, parent, false);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:385:                String username = super.getItem(position);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:386:                Drawable accountHead = mImageCache.get(username);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:388:                    accountHead = new BitmapDrawable(parent.getResources(), MinecraftAccount.getSkinFace(username));
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:389:                    mImageCache.put(username, accountHead);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/listener/ErrorListener.java:1:package net.kdt.pojavlaunch.authenticator.listener;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/listener/ErrorListener.java:5:    void onLoginError(Throwable errorMessage);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/listener/ProgressListener.java:1:package net.kdt.pojavlaunch.authenticator.listener;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/listener/ProgressListener.java:6:    void onLoginProgress(int step);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/listener/DoneListener.java:1:package net.kdt.pojavlaunch.authenticator.listener;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/listener/DoneListener.java:3:import net.kdt.pojavlaunch.value.MinecraftAccount;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/listener/DoneListener.java:5:/** Called when the login is done and the account received. guaranteed to be on the UI Thread */
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/listener/DoneListener.java:7:    void onLoginDone(MinecraftAccount account);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:1:package net.kdt.pojavlaunch.authenticator.microsoft;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:16:import net.kdt.pojavlaunch.authenticator.listener.DoneListener;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:17:import net.kdt.pojavlaunch.authenticator.listener.ErrorListener;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:18:import net.kdt.pojavlaunch.authenticator.listener.ProgressListener;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:19:import net.kdt.pojavlaunch.value.MinecraftAccount;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:36:/** Allow to perform a background login on a given account */
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:38:public class MicrosoftBackgroundLogin {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:39:    private static final String authTokenUrl = "https://login.live.com/oauth20_token.srf";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:40:    private static final String xblAuthUrl = "https://user.auth.xboxlive.com/user/authenticate";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:41:    private static final String xstsAuthUrl = "https://xsts.auth.xboxlive.com/xsts/authorize";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:42:    private static final String mcLoginUrl = "https://api.minecraftservices.com/authentication/login_with_xbox";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:47:    private final String mAuthCode;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:66:    public MicrosoftBackgroundLogin(boolean isRefresh, String authCode){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:68:        mAuthCode = authCode;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:71:    /** Performs a full login, calling back listeners appropriately  */
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:72:    public void performLogin(@Nullable final ProgressListener progressListener,
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:78:                String accessToken = acquireAccessToken(mIsRefresh, mAuthCode);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:80:                String xboxLiveToken = acquireXBLToken(accessToken);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:90:                    throw new PresentedException(R.string.minecraft_no_username_set);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:97:                MinecraftAccount acc = MinecraftAccount.load(mcName);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:98:                if(acc == null) acc = new MinecraftAccount();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:99:                acc.xuid = xsts[0];
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:100:                acc.clientToken = "0"; /* FIXME */
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:101:                acc.accessToken = mcToken;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:102:                acc.username = mcName;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:103:                acc.profileId = mcUuid;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:104:                acc.isMicrosoft = true;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:105:                acc.msaRefreshToken = msRefreshToken;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:111:                    MinecraftAccount finalAcc = acc;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:112:                    Tools.runOnUiThread(() -> doneListener.onLoginDone(finalAcc));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:116:                Log.e("MicroAuth", "Exception thrown during authentication", e);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:118:                    Tools.runOnUiThread(() -> errorListener.onLoginError(e));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:124:    public String acquireAccessToken(boolean isRefresh, String authcode) throws IOException, JSONException {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:125:        URL url = new URL(authTokenUrl);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:126:        Log.i("MicrosoftLogin", "isRefresh=" + isRefresh + ", authCode= "+authcode);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:130:                isRefresh ? "refresh_token" : "code", authcode,
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:131:                "grant_type", isRefresh ? "refresh_token" : "authorization_code",
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:132:                "redirect_url", "https://login.live.com/oauth20_desktop.srf",
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:133:                "scope", "service::user.auth.xboxlive.com::MBI_SSL"
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:136:        Log.i("MicroAuth", formData);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:155:            Log.i("MicrosoftLogin","Acess Token = " + jo.getString("access_token"));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:163:    private String acquireXBLToken(String accessToken) throws IOException, JSONException {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:164:        URL url = new URL(xblAuthUrl);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:168:        properties.put("AuthMethod", "RPS");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:169:        properties.put("SiteName", "user.auth.xboxlive.com");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:170:        properties.put("RpsTicket", accessToken);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:172:        data.put("RelyingParty", "http://auth.xboxlive.com");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:186:            Log.i("MicrosoftLogin","Xbl Token = "+jo.getString("Token"));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:196:        URL url = new URL(xstsAuthUrl);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:207:        Log.i("MicroAuth", req);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:210:        Log.i("MicroAuth", conn.getRequestMethod());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:222:            Log.i("MicrosoftLogin","Xbl Xsts = " + token + "; Uhs = " + uhs);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:240:        URL url = new URL(mcLoginUrl);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:258:            Log.i("MicrosoftLogin","MC token: "+jo.getString("access_token"));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:268:        // We only need to do this if user does not have a profile/username yet
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:277:            conn.setRequestProperty("Authorization", "Bearer " + mcAccessToken);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:324:            Log.w("MicrosoftLogin", "Either the Auth API was changed or this account does not own Minecraft! Assuming the latter.");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:337:            conn.setRequestProperty("Authorization", "Bearer " + mcAccessToken);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:344:                Log.i("MicrosoftLogin","profile:" + s);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:347:                String uuid = (String) jsonObject.get("id");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:348:                String uuidDashes = uuid.replaceFirst(
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:353:                Log.i("MicrosoftLogin","UserName = " + name);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:354:                Log.i("MicrosoftLogin","Uuid Minecraft = " + uuidDashes);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:356:                mcUuid = uuidDashes;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:359:                Log.i("MicrosoftLogin","It seems that this Microsoft Account does not have a Minecraft profile, checking for ownership.");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:363:                Log.e("MicrosoftLogin", "You screwed up the auth code somewhere");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:376:            Tools.runOnUiThread(() -> listener.onLoginProgress(step));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:391:            Log.e("MicrosoftAuth", e.toString());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:414:        Log.i("MicrosoftLogin", "Error code: " + conn.getResponseCode() + ": " + conn.getResponseMessage());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java:416:            return new PresentedException(R.string.microsoft_login_retry_later);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/PresentedException.java:1:package net.kdt.pojavlaunch.authenticator.microsoft;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/extra/ExtraConstants.java:10:    /* ExtraCore constant: When the microsoft authentication via webview is done */
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/extra/ExtraConstants.java:11:    public static final String MICROSOFT_LOGIN_TODO = "webview_login_done";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/extra/ExtraConstants.java:12:    /* ExtraCore constant: Mojang or "local" authentication to perform */
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/extra/ExtraConstants.java:13:    public static final String MOJANG_LOGIN_TODO = "mojang_login_todo";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/extra/ExtraConstants.java:14:    /* ExtraCore constant: Add minecraft account procedure, the user has to select between mojang or microsoft */
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/extra/ExtraConstants.java:15:    public static final String SELECT_AUTH_METHOD = "start_login_procedure";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/extra/ExtraConstants.java:18:    /* ExtraCore constant: Need to refresh the version spinner, selecting the uuid at the same time. Can be DELETED_PROFILE */
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/scoped/FolderProvider.java:54:    private String mStorageProviderAuthortiy;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/scoped/FolderProvider.java:148:        mStorageProviderAuthortiy = getContext().getString(R.string.storageProviderAuthorities);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/scoped/FolderProvider.java:368:        return DocumentsContract.buildDocumentUri(mStorageProviderAuthortiy, file.getAbsolutePath());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/CustomControlsActivity.java:53:						Uri contentUri = DocumentsContract.buildDocumentUri(getString(R.string.storageProviderAuthorities), mControlLayout.saveToDirectory(mControlLayout.mLayoutFileName));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:3:import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:23:public class LocalLoginFragment extends Fragment {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:29:    public LocalLoginFragment(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:30:        super(R.layout.fragment_local_login);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:37:        if (!hasOnlineProfile()){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:40:        mUsernameEditText = view.findViewById(R.id.login_edit_email);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:41:        view.findViewById(R.id.login_button).setOnClickListener(v -> {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:44:                Tools.dialog(context, context.getString(R.string.local_login_bad_username_title), context.getString(R.string.local_login_bad_username_text));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java:56:    /** @return Whether the mail (and password) text are eligible to make an auth request  */
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java:3:import static net.kdt.pojavlaunch.Tools.hasNoOnlineProfileDialog;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java:4:import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java:50:        if(!hasOnlineProfile()){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ModpackCreateFragment.java:51:            hasNoOnlineProfileDialog(requireActivity());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:25:public class MicrosoftLoginFragment extends Fragment {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:33:        mWebview = (WebView) inflater.inflate(R.layout.fragment_microsoft_login, container, false);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:35:        if(savedInstanceState == null) startNewSession();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:51:    private void startNewSession() {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:57:            mWebview.loadUrl("https://login.live.com/oauth20_authorize.srf" +
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:60:                    "&scope=service%3A%3Auser.auth.xboxlive.com%3A%3AMBI_SSL" +
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:61:                    "&redirect_url=https%3A%2F%2Flogin.live.com%2Foauth20_desktop.srf");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:66:        Log.i("MSAuthFragment","Restoring state...");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:68:            Log.w("MSAuthFragment", "Failed to restore state, starting afresh");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:69:            // if, for some reason, we failed to restore our session,
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:71:            startNewSession();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java:108:                Toast.makeText(view.getContext(), "Login started !", Toast.LENGTH_SHORT).show();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:5:import static net.kdt.pojavlaunch.Tools.hasNoOnlineProfileDialog;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:6:import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:65:        if (hasOnlineProfile()) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:71:        } else mInstallJarButton.setOnClickListener(v -> hasNoOnlineProfileDialog(requireActivity()));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:91:            if (Tools.isDemoProfile(v.getContext())){ // Say a different message when on demo profile since they might see the hidden demo folder
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:92:                hasNoOnlineProfileDialog(getActivity(), getString(R.string.demo_unsupported), getString(R.string.change_account));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:93:            } else if (!hasOnlineProfile()) { // Otherwise display the generic pop-up to log in
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:94:                hasNoOnlineProfileDialog(requireActivity());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java:3:import static net.kdt.pojavlaunch.Tools.hasNoOnlineProfileDialog;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java:4:import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java:55:        if(!hasOnlineProfile()){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java:56:            hasNoOnlineProfileDialog(requireActivity());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java:3:import static net.kdt.pojavlaunch.Tools.hasNoOnlineProfileDialog;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java:16:public class SelectAuthFragment extends Fragment {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java:19:    public SelectAuthFragment(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java:20:        super(R.layout.fragment_select_auth_method);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java:25:        Button mMicrosoftButton = view.findViewById(R.id.button_microsoft_authentication);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java:26:        Button mLocalButton = view.findViewById(R.id.button_local_authentication);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java:28:        mMicrosoftButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(), MicrosoftLoginFragment.class, MicrosoftLoginFragment.TAG, null));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java:29:        mLocalButton.setOnClickListener(v -> hasNoOnlineProfileDialog(requireActivity(), () -> Tools.swapFragment(requireActivity(), LocalLoginFragment.class, LocalLoginFragment.TAG, null)));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:6:import static net.kdt.pojavlaunch.Tools.hasNoOnlineProfileDialog;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:7:import static net.kdt.pojavlaunch.Tools.isOnline;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:40:import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:41:import net.kdt.pojavlaunch.fragments.SelectAuthFragment;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:152:    /* Listener for the auth method selection screen */
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:153:    private final ExtraListener<Boolean> mSelectAuthMethod = (key, value) -> {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:158:        Tools.swapFragment(this, SelectAuthFragment.class, SelectAuthFragment.TAG, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:190:        if(false && mAccountSpinner.getSelectedAccount() == null){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:191:            Toast.makeText(this, R.string.no_saved_accounts, Toast.LENGTH_LONG).show();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:220:            // We just installed a json, we need internet + online acc to download so we add super
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:226:                    if (!isOnline(this)){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:240:        if (false && mAccountSpinner.getSelectedAccount().isDemo()) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:250:                hasNoOnlineProfileDialog(this, getString(R.string.global_error), getString(R.string.demo_versions_supported));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:337:        ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:379:        ExtraCore.removeExtraListenerFromValue(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:388:        MicrosoftLoginFragment fragment = (MicrosoftLoginFragment) getVisibleFragment(MicrosoftLoginFragment.TAG);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:64:    private boolean isLocalProfile = false;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:65:    private boolean isOnline;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:78:            isLocalProfile = Tools.isLocalProfile(activity);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:79:            isOnline = Tools.isOnline(activity);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:80:            Tools.switchDemo(Tools.isDemoProfile(activity));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:83:            isLocalProfile = true;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:89:                if(isLocalProfile || !isOnline) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:108:                        String tryagain = !isOnline ? "Please ensure you have an internet connection" : "Please try again on your Microsoft Account";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:505:            // Only use cache when its offline. No point in having cache invalidation now!
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:506:            if (!isOnline || !LauncherPreferences.PREF_CHECK_LIBRARY_SHA) { // Well not only offlines..this setting speeds up launch times at least!
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LwjglGlfwKeycode.java:11: * warranty. In no event will the authors be held liable for any damages
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:22:public class MinecraftAccount {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:23:    public String accessToken = "0"; // access token
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:24:    public String clientToken = "0"; // clientID: refresh and invalidate
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:25:    public String profileId = "00000000-0000-0000-0000-000000000000"; // profile UUID, for obtaining skin
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:26:    public String username = "Steve";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:28:    public boolean isMicrosoft = false;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:29:    public String msaRefreshToken = "0";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:30:    public String xuid;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:35:    void updateSkinFace(String uuid) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:37:            File skinFile = getSkinFaceFile(username);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:38:            Tools.downloadFile("https://mc-heads.net/head/" + uuid + "/100", skinFile.getAbsolutePath());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:48:    public boolean isLocal(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:49:        return accessToken.equals("0") && !username.startsWith("Demo.");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:52:    public boolean isDemo(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:53:        return username.startsWith("Demo.");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:57:        updateSkinFace(profileId);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:62:        return username;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:66:        return save(Tools.DIR_ACCOUNT_NEW + "/" + username + ".json");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:69:    public static MinecraftAccount parse(String content) throws JsonSyntaxException {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:70:        return Tools.GLOBAL_GSON.fromJson(content, MinecraftAccount.class);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:73:    public static MinecraftAccount load(String name) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:74:        if(!accountExists(name)) return null;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:76:            MinecraftAccount acc = parse(Tools.read(Tools.DIR_ACCOUNT_NEW + "/" + name + ".json"));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:77:            if (acc.accessToken == null) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:78:                acc.accessToken = "0";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:80:            if (acc.clientToken == null) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:81:                acc.clientToken = "0";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:83:            if (acc.profileId == null) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:84:                acc.profileId = "00000000-0000-0000-0000-000000000000";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:86:            if (acc.username == null) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:87:                acc.username = "0";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:92:            if (acc.msaRefreshToken == null) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:93:                acc.msaRefreshToken = "0";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:97:            Log.e(MinecraftAccount.class.getName(), "Caught an exception while loading the profile",e);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:103:        if(isLocal()) return null;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:105:        File skinFaceFile = getSkinFaceFile(username);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:120:    public static Bitmap getSkinFace(String username) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:121:        return BitmapFactory.decodeFile(getSkinFaceFile(username).getAbsolutePath());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:124:    private static File getSkinFaceFile(String username) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:125:        return new File(Tools.DIR_CACHE, username + ".png");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:128:    private static boolean accountExists(String username){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:129:        return new File(Tools.DIR_ACCOUNT_NEW + "/" + username + ".json").exists();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/LauncherProfiles.java:97:                Log.w(LauncherProfiles.class.toString(), "Illegal profile uuid: " + profileKey);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/MinecraftAuthenticationDatabase.java:6:public class MinecraftAuthenticationDatabase {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/MinecraftAuthenticationDatabase.java:7:	public String accessToken;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/MinecraftAuthenticationDatabase.java:9:	public String username;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/MinecraftAuthenticationDatabase.java:10:    public String uuid;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/MinecraftLauncherProfiles.java:11:	public String clientToken;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/MinecraftLauncherProfiles.java:12:	public Map<String, MinecraftAuthenticationDatabase> authenticationDatabase;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:9:import net.kdt.pojavlaunch.value.MinecraftAccount;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:26:    public static MinecraftAccount getCurrentProfileContent(@NonNull Context ctx, @Nullable String profileName) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:28:        MinecraftAccount account = MinecraftAccount.load(name);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:31:            account = new MinecraftAccount();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:32:            account.username = "Steve";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:33:            account.accessToken = "0";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:34:            account.clientToken = "0";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:35:            account.profileId = "00000000-0000-0000-0000-000000000000";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:36:            account.isMicrosoft = false;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:52:	public static List<MinecraftAccount> getAllProfiles(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:53:		List<MinecraftAccount> mcAccountList = new ArrayList<>();;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:55:			if (MinecraftAccount.load(accountName) != null) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:56:				mcAccountList.add(MinecraftAccount.load(accountName));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java:79:                //MinecraftAccount.clearTempAccount();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/mirrors/DownloadMirror.java:89:        } catch (IOException ignored) { // If error happens, fallback to old file counter instead of size. This shouldn't really happen unless offline though.
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/NewJREUtil.java:6:import static net.kdt.pojavlaunch.Tools.isOnline;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/NewJREUtil.java:182:        if (!isOnline(activity)) throw new RuntimeException(activity.getString(R.string.multirt_no_internet));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:78:import net.kdt.pojavlaunch.value.MinecraftAccount;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:221:        switchDemo(isDemoProfile(ctx));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:403:    public static void launchMinecraft(final AppCompatActivity activity, MinecraftAccount minecraftAccount,
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:455:        String[] launchArgs = getMinecraftClientArgs(minecraftAccount, versionInfo, gamedir);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:798:    public static String[] getMinecraftClientArgs(MinecraftAccount profile, JMinecraftVersionList.Version versionInfo, File gameDir) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:799:        String username = profile.username.replace("Demo.", "");
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:820:        varArgMap.put("auth_session", profile.accessToken); // For legacy versions of MC
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:821:        varArgMap.put("auth_access_token", profile.accessToken);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:822:        varArgMap.put("auth_player_name", username);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:823:        varArgMap.put("auth_uuid", profile.profileId.replace("-", ""));
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:824:        varArgMap.put("auth_xuid", profile.xuid);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:848:        if(profile.isDemo()) mcArguments += " --demo";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1678:        Uri contentUri = DocumentsContract.buildDocumentUri(context.getString(R.string.storageProviderAuthorities), file.getAbsolutePath());
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1800:    public static void switchDemo(boolean isDemo){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1801:        if(isDemo) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1818:    public static boolean isOnline(Context ctx) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1824:    public static boolean isDemoProfile(Context ctx){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1825:        MinecraftAccount currentProfile = PojavProfile.getCurrentProfileContent(ctx, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1826:        return currentProfile != null && currentProfile.isDemo();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1829:    public static boolean isLocalProfile(Context ctx){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1830:        MinecraftAccount currentProfile = PojavProfile.getCurrentProfileContent(ctx, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1831:        return currentProfile == null || currentProfile.isLocal();
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1833:    public static boolean hasOnlineProfile(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1834:        for (MinecraftAccount accountToCheck : getAllProfiles()) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1835:            if (!accountToCheck.isLocal() && !accountToCheck.isDemo()) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1842:    public static void hasNoOnlineProfileDialog(Activity activity, @Nullable Runnable run, @Nullable String customTitle, @Nullable String customMessage){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1843:        if (hasOnlineProfile() && !Tools.isDemoProfile(activity)){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1847:        } else { // If there is no online profile, show a dialog
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1848:            customTitle = customTitle == null ? activity.getString(R.string.no_minecraft_account_found) : customTitle;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1855:    public static void hasNoOnlineProfileDialog(Activity activity){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1856:        hasNoOnlineProfileDialog(activity, null, null, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1858:    public static void hasNoOnlineProfileDialog(Activity activity, Runnable run){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1859:        hasNoOnlineProfileDialog(activity, run, null, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1861:    public static void hasNoOnlineProfileDialog(Activity activity, String customTitle, String customMessage){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1862:        hasNoOnlineProfileDialog(activity, null, customTitle, customMessage);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/MainActivity.java:76:import net.kdt.pojavlaunch.value.MinecraftAccount;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/MainActivity.java:487:        MinecraftAccount minecraftAccount = PojavProfile.getCurrentProfileContent(this, null);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/MainActivity.java:499:        Tools.launchMinecraft(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/modloaders/modpacks/models/CurseManifest.java:6:    public String author;
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:88:        private GattOperation(BluetoothGatt gatt, GattOperation.Operation operation, UUID uuid) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:91:            mUuid = uuid;
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:94:        private GattOperation(BluetoothGatt gatt, GattOperation.Operation operation, UUID uuid, int delayMs) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:97:            mUuid = uuid;
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:101:        private GattOperation(BluetoothGatt gatt, GattOperation.Operation operation, UUID uuid, byte[] value) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:104:            mUuid = uuid;
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:108:        private GattOperation(BluetoothGatt gatt, GattOperation.Operation operation, UUID uuid, byte[] value, int delayMs) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:111:            mUuid = uuid;
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:179:        private BluetoothGattCharacteristic getCharacteristic(UUID uuid) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:183:            return valveService.getCharacteristic(uuid);
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:186:        static public GattOperation readCharacteristic(BluetoothGatt gatt, UUID uuid) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:187:            return new GattOperation(gatt, Operation.CHR_READ, uuid);
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:190:        static public GattOperation writeCharacteristic(BluetoothGatt gatt, UUID uuid, byte[] value) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:191:            return new GattOperation(gatt, Operation.CHR_WRITE, uuid, value);
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:194:        static public GattOperation enableNotification(BluetoothGatt gatt, UUID uuid) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:195:            return new GattOperation(gatt, Operation.ENABLE_NOTIFICATION, uuid);
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:198:        static public GattOperation enableNotification(BluetoothGatt gatt, UUID uuid, int delayMs) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:199:            return new GattOperation(gatt, Operation.ENABLE_NOTIFICATION, uuid, delayMs);
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:527:    void writeCharacteristic(UUID uuid, byte[] value) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:528:        GattOperation op = HIDDeviceBLESteamController.GattOperation.writeCharacteristic(mGatt, uuid, value);
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:532:    void readCharacteristic(UUID uuid) {
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:533:        GattOperation op = HIDDeviceBLESteamController.GattOperation.readCharacteristic(mGatt, uuid);
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:591:        //Log.v(TAG, "onCharacteristicRead status=" + status + " uuid=" + characteristic.getUuid());
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:602:        //Log.v(TAG, "onCharacteristicWrite status=" + status + " uuid=" + characteristic.getUuid());
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:619:        //Log.v(TAG, "onCharacteristicChanged uuid=" + characteristic.getUuid() + " data=" + HexDump.dumpHexString(characteristic.getValue()));
+app_pojavlauncher/src/main/java/org/libsdl/app/HIDDeviceBLESteamController.java:657:        //Log.v(TAG, "onDescriptorWrite status=" + status + " uuid=" + chr.getUuid() + " descriptor=" + descriptor.getUuid());
+app_pojavlauncher/src/main/java/org/libsdl/app/SDLControllerManager.java:173:        LightsManager.LightsSession lightsSession;
+app_pojavlauncher/src/main/java/org/libsdl/app/SDLControllerManager.java:283:                            joystick.lightsSession = lightsManager.openSession();
+app_pojavlauncher/src/main/java/org/libsdl/app/SDLControllerManager.java:332:                            if (mJoysticks.get(i).lightsSession != null) {
+app_pojavlauncher/src/main/java/org/libsdl/app/SDLControllerManager.java:334:                                    mJoysticks.get(i).lightsSession.close();
+app_pojavlauncher/src/main/java/org/libsdl/app/SDLControllerManager.java:336:                                    // Session may already be unregistered when device disconnects
+app_pojavlauncher/src/main/java/org/libsdl/app/SDLControllerManager.java:338:                                mJoysticks.get(i).lightsSession = null;
+app_pojavlauncher/src/main/java/org/libsdl/app/SDLControllerManager.java:548:        joystick.lightsSession.requestLights(lightsRequest.build());
+app_pojavlauncher/src/main/res/values-ja/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-ja/strings.xml:8:    <string name="login_online_username_hint">ユーザー名</string>
+app_pojavlauncher/src/main/res/values-ja/strings.xml:9:    <string name="login_online_login_label">ログイン</string>
+app_pojavlauncher/src/main/res/values-ja/strings.xml:197:    <string name="main_login_done">ログイン完了</string>
+app_pojavlauncher/src/main/res/values-ja/strings.xml:200:    <string name="no_saved_accounts">保存されたアカウントはありません</string>
+app_pojavlauncher/src/main/res/values-ja/strings.xml:214:    <string name="microsoft_login_retry_later">リクエストが多すぎるため、後でもう一度お試しください。</string>
+app_pojavlauncher/src/main/res/values-es/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-es/strings.xml:7:    <string name="login_online_username_hint">Nombre de usuario</string>
+app_pojavlauncher/src/main/res/values-es/strings.xml:8:    <string name="login_online_login_label">Iniciar sesión</string>
+app_pojavlauncher/src/main/res/values-es/strings.xml:209:    <string name="main_login_done">Inicio de sesión completado</string>
+app_pojavlauncher/src/main/res/values-es/strings.xml:212:    <string name="no_saved_accounts">No hay cuentas guardadas</string>
+app_pojavlauncher/src/main/res/values-es/strings.xml:226:    <string name="microsoft_login_retry_later">Demasiadas solicitudes, inténtalo de nuevo más tarde.</string>
+app_pojavlauncher/src/main/res/values-es/strings.xml:349:    <string name="local_login_bad_username_title">Nombre de usuario inadecuado</string>
+app_pojavlauncher/src/main/res/values-es/strings.xml:350:    <string name="local_login_bad_username_text">El nombre de usuario debe de ser entre 3 a 16 caracteres, y solo contener letras latinas, números de 0 a 9 y guiones bajos.</string>
+app_pojavlauncher/src/main/res/values-pt-rBR/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-pt-rBR/strings.xml:7:    <string name="login_online_username_hint">Nome de Usuário</string>
+app_pojavlauncher/src/main/res/values-pt-rBR/strings.xml:8:    <string name="login_online_login_label">Iniciar sessão</string>
+app_pojavlauncher/src/main/res/values-pt-rBR/strings.xml:197:    <string name="main_login_done">‘Login’ efetuado</string>
+app_pojavlauncher/src/main/res/values-pt-rBR/strings.xml:200:    <string name="no_saved_accounts">Não há contas salvas</string>
+app_pojavlauncher/src/main/res/values-pt-rBR/strings.xml:203:    <string name="xerr_no_account">Parece que você não tem uma conta Xbox Live. Por favor, faça login em https://minecraft.net/ e tente novamente.</string>
+app_pojavlauncher/src/main/res/values-pt-rBR/strings.xml:206:    <string name="minecraft_not_owned">Parece que esta conta não tem um perfil do Minecraft. Se você tiver o Xbox Game Pass, faça login em https://minecraft.net/ e configure-o.</string>
+app_pojavlauncher/src/main/res/values-pt-rBR/strings.xml:215:    <string name="microsoft_login_retry_later">Você fez muitas solicitações. Por favor, tente novamente mais tarde.</string>
+app_pojavlauncher/src/main/res/values-pt-rBR/strings.xml:342:    <string name="local_login_bad_username_title">Nome de usuário inadequado</string>
+app_pojavlauncher/src/main/res/values-pt-rBR/strings.xml:343:    <string name="local_login_bad_username_text">O nome de usuário deve ter entre 3 a 16 caracteres, deve conter somente letras latinas, número de 0 a 9 e sublinhados.</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-in/strings.xml:8:    <string name="login_online_username_hint">Nama pengguna</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:9:    <string name="login_online_login_label">Masuk</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:222:    <string name="main_login_done">Masuk selesai</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:225:    <string name="no_saved_accounts">Tidak ada akun yang tersimpan</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:228:    <string name="xerr_no_account">Kamu sepertinya tidak memiliki akun Xbox Live. Tolong login ke https://minecraft.net/ dan ulang kembali.</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:231:    <string name="minecraft_not_owned">Sepertinya akun ini tidak mempunyai profil Minecraft. Jika kamu memiliki Xbox Game Pass, tolong login ke https://minecraft.net/ dan mengaturnya.</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:240:    <string name="microsoft_login_retry_later">Terlalu banyak permintaan, coba lagi nanti.</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:381:    <string name="local_login_bad_username_title">Nama pengguna tidak cocok</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:382:    <string name="local_login_bad_username_text">Nama pengguna harus 3–16 karakter, hanya boleh pakai huruf, angka, dan garis bawah.</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:412:    <string name="no_minecraft_account_found">Tidak Ada Akun Minecraft Java Yang Ditemukan</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:414:    <string name="delete_account_and_login">Hapus akun dan masuk lagi</string>
+app_pojavlauncher/src/main/res/values-in/strings.xml:415:    <string name="login_again">Silakan masuk kembali</string>
+app_pojavlauncher/src/main/res/values-en-rGB/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:13:        android:id="@+id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:27:        android:text="@string/login_online_username_hint"
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:29:        app:layout_constraintBottom_toTopOf="@+id/login_edit_email"
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:30:        app:layout_constraintStart_toStartOf="@+id/login_edit_email" />
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:34:        android:id="@+id/login_edit_email"
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:45:        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:46:        app:layout_constraintStart_toStartOf="@+id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:47:        app:layout_constraintTop_toTopOf="@+id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:51:        android:id="@+id/login_button"
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:56:        android:onClick="loginMC"
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:57:        android:text="@string/login_online_login_label"
+app_pojavlauncher/src/main/res/layout/fragment_local_login.xml:62:        app:layout_constraintTop_toBottomOf="@+id/login_edit_email" />
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:14:        android:id="@+id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:27:        android:id="@+id/button_microsoft_authentication"
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:34:        app:layout_constraintBottom_toTopOf="@+id/button_local_authentication"
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:35:        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:37:        app:layout_constraintStart_toStartOf="@+id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:38:        app:layout_constraintTop_toTopOf="@id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:43:        android:id="@+id/button_local_authentication"
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:49:        app:layout_constraintBottom_toBottomOf="@id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:50:        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:52:        app:layout_constraintStart_toStartOf="@+id/login_menu"
+app_pojavlauncher/src/main/res/layout/fragment_select_auth_method.xml:53:        app:layout_constraintTop_toBottomOf="@+id/button_microsoft_authentication" />
+app_pojavlauncher/src/main/res/values-af/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-af/strings.xml:7:    <string name="login_online_login_label">Anmelden</string>
+app_pojavlauncher/src/main/res/values-af/strings.xml:49:    <string name="global_error">I want to login</string>
+app_pojavlauncher/src/main/res/values-fr/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-fr/strings.xml:8:    <string name="login_online_username_hint">Nom d’utilisateur</string>
+app_pojavlauncher/src/main/res/values-fr/strings.xml:9:    <string name="login_online_login_label">Se connecter</string>
+app_pojavlauncher/src/main/res/values-fr/strings.xml:216:    <string name="main_login_done">Connexion effectuée</string>
+app_pojavlauncher/src/main/res/values-fr/strings.xml:219:    <string name="no_saved_accounts">Aucun compte enregistré</string>
+app_pojavlauncher/src/main/res/values-fr/strings.xml:234:    <string name="microsoft_login_retry_later">Trop de requêtes, s\'il vous plaît réessayez plus tard.</string>
+app_pojavlauncher/src/main/res/values-fr/strings.xml:368:    <string name="local_login_bad_username_title">Nom d\'utilisateur inadapté</string>
+app_pojavlauncher/src/main/res/values-fr/strings.xml:369:    <string name="local_login_bad_username_text">Le nom d\'utilisateur doit comporter entre 3 et 16 caractères et ne doit contenir que des lettres latines, des chiffres 0 à 9 et des tirets bas.</string>
+app_pojavlauncher/src/main/res/values-fr/strings.xml:399:    <string name="no_minecraft_account_found">Aucun compte Minecraft trouvé</string>
+app_pojavlauncher/src/main/res/values-fr/strings.xml:401:    <string name="delete_account_and_login">Supprimer le compte et se connecter</string>
+app_pojavlauncher/src/main/res/values-fr/strings.xml:402:    <string name="login_again">Veuillez vous connecter à nouveau</string>
+app_pojavlauncher/src/main/res/values-rpr/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-rpr/strings.xml:7:    <string name="login_online_login_label">Войти</string>
+app_pojavlauncher/src/main/res/values-ms/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-ms/strings.xml:8:    <string name="login_online_username_hint">Nama pengguna</string>
+app_pojavlauncher/src/main/res/values-ms/strings.xml:9:    <string name="login_online_login_label">Log masuk</string>
+app_pojavlauncher/src/main/res/values-ms/strings.xml:222:    <string name="main_login_done">Log masuk selesai</string>
+app_pojavlauncher/src/main/res/values-ms/strings.xml:225:    <string name="no_saved_accounts">Tiada akaun yang disimpan</string>
+app_pojavlauncher/src/main/res/values-ms/strings.xml:240:    <string name="microsoft_login_retry_later">Terlalu banyak permintaan, sila cuba sebentar lagi.</string>
+app_pojavlauncher/src/main/res/values-ms/strings.xml:381:    <string name="local_login_bad_username_title">Nama pengguna yang tidak sesuai</string>
+app_pojavlauncher/src/main/res/values-ms/strings.xml:382:    <string name="local_login_bad_username_text">Nama pengguna mesti mempunyai panjang antara 3–16 aksara, dan hanya mengandungi huruf latin, nombor 0–9 dan garis bawah.</string>
+app_pojavlauncher/src/main/res/values-ms/strings.xml:412:    <string name="no_minecraft_account_found">Tiada Akaun Minecraft Ditemui</string>
+app_pojavlauncher/src/main/res/values-ms/strings.xml:414:    <string name="delete_account_and_login">Hapus akaun dan log masuk</string>
+app_pojavlauncher/src/main/res/values-ms/strings.xml:415:    <string name="login_again">Sila log masuk lagi</string>
+app_pojavlauncher/src/main/res/values-sv/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-sv/strings.xml:7:    <string name="login_online_login_label">Logga in</string>
+app_pojavlauncher/src/main/res/values-cs/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-cs/strings.xml:8:    <string name="login_online_username_hint">Uživatelské jméno</string>
+app_pojavlauncher/src/main/res/values-cs/strings.xml:9:    <string name="login_online_login_label">Přihlásit se</string>
+app_pojavlauncher/src/main/res/values-cs/strings.xml:222:    <string name="main_login_done">Přihlášení bylo dokončeno</string>
+app_pojavlauncher/src/main/res/values-cs/strings.xml:225:    <string name="no_saved_accounts">Žádné přihlášené účty</string>
+app_pojavlauncher/src/main/res/values-cs/strings.xml:240:    <string name="microsoft_login_retry_later">Příliš mnoho požadavků, zkuste to znovu později.</string>
+app_pojavlauncher/src/main/res/values-cs/strings.xml:381:    <string name="local_login_bad_username_title">Špatné uživatelské jméno</string>
+app_pojavlauncher/src/main/res/values-cs/strings.xml:382:    <string name="local_login_bad_username_text">Uživatelské jméno musí být mezi 3 až 16 znaky, musí být pouze v latince s čísly a podtržítkem.</string>
+app_pojavlauncher/src/main/res/values-cs/strings.xml:412:    <string name="no_minecraft_account_found">Nenalezen žádný Minecraft účet</string>
+app_pojavlauncher/src/main/res/values-cs/strings.xml:414:    <string name="delete_account_and_login">Odstranit účet a přihlásit se</string>
+app_pojavlauncher/src/main/res/values-cs/strings.xml:415:    <string name="login_again">Prosím přihlašte se znovu</string>
+app_pojavlauncher/src/main/res/values-sr/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-sr/strings.xml:7:    <string name="login_online_login_label">Пријава</string>
+app_pojavlauncher/src/main/res/values-no/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-no/strings.xml:7:    <string name="login_online_login_label">Logg inn</string>
+app_pojavlauncher/src/main/res/values-fi/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-fi/strings.xml:7:    <string name="login_online_login_label">Kirjaudu sisään</string>
+app_pojavlauncher/src/main/res/values-iw/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-iw/strings.xml:8:    <string name="login_online_username_hint">שם משתמש</string>
+app_pojavlauncher/src/main/res/values-iw/strings.xml:9:    <string name="login_online_login_label">התחבר</string>
+app_pojavlauncher/src/main/res/values-iw/strings.xml:213:    <string name="main_login_done">התחברות הושלמה.</string>
+app_pojavlauncher/src/main/res/values-iw/strings.xml:216:    <string name="no_saved_accounts">לא נשמר חשבון</string>
+app_pojavlauncher/src/main/res/values-iw/strings.xml:229:    <string name="microsoft_login_retry_later">יותר מדי בקשות, נסו שוב מאוחר יותר.</string>
+app_pojavlauncher/src/main/res/values-iw/strings.xml:362:    <string name="local_login_bad_username_title">שם משתמש לא מתאים</string>
+app_pojavlauncher/src/main/res/values-iw/strings.xml:363:    <string name="local_login_bad_username_text">שם המשתמש חייב להכיל בין 3 ל־16 תווים, ויכול לכלול רק אותיות לטיניות, ספרות 0–9 וקו תחתון.</string>
+app_pojavlauncher/src/main/res/values-iw/strings.xml:386:    <string name="no_minecraft_account_found">לא נמצא חשבון מיינקראפט</string>
+app_pojavlauncher/src/main/res/values-iw/strings.xml:388:    <string name="delete_account_and_login">מחק חשבון והיכנס</string>
+app_pojavlauncher/src/main/res/values-iw/strings.xml:389:    <string name="login_again">התחבר שוב בבקשה</string>
+app_pojavlauncher/src/main/res/values-uk/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-uk/strings.xml:8:    <string name="login_online_username_hint">Ім\'я користувача</string>
+app_pojavlauncher/src/main/res/values-uk/strings.xml:9:    <string name="login_online_login_label">Увійти</string>
+app_pojavlauncher/src/main/res/values-uk/strings.xml:224:    <string name="main_login_done">Вхід виконано</string>
+app_pojavlauncher/src/main/res/values-uk/strings.xml:227:    <string name="no_saved_accounts">Немає збережених обл. записів</string>
+app_pojavlauncher/src/main/res/values-uk/strings.xml:242:    <string name="microsoft_login_retry_later">Занадто багато запитів, спробуйте пізніше.</string>
+app_pojavlauncher/src/main/res/values-uk/strings.xml:383:    <string name="local_login_bad_username_title">Невідповідне ім\'я користувача</string>
+app_pojavlauncher/src/main/res/values-uk/strings.xml:384:    <string name="local_login_bad_username_text">Ім’я користувача має містити від 3 до 16 символів і містити лише латинські літери, цифри 0–9 і підкреслення.</string>
+app_pojavlauncher/src/main/res/values-uk/strings.xml:414:    <string name="no_minecraft_account_found">Обліковий запис Minecraft не знайдено</string>
+app_pojavlauncher/src/main/res/values-uk/strings.xml:416:    <string name="delete_account_and_login">Видалити обліковий запис і увійти</string>
+app_pojavlauncher/src/main/res/values-uk/strings.xml:417:    <string name="login_again">Будь ласка, увійдіть знову</string>
+app_pojavlauncher/src/main/res/values-lt/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-lt/strings.xml:8:    <string name="login_online_login_label">Prisijungti</string>
+app_pojavlauncher/src/main/res/values-lt/strings.xml:170:    <string name="main_login_done">Prisijungta</string>
+app_pojavlauncher/src/main/res/values-lt/strings.xml:172:    <string name="no_saved_accounts">Nėra išsaugotų paskyrų</string>
+app_pojavlauncher/src/main/res/values-lt/strings.xml:180:    <string name="microsoft_login_retry_later">Per daug užklausų, pabandykite dar kartą vėliau.</string>
+app_pojavlauncher/src/main/res/values-ko/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-ko/strings.xml:8:    <string name="login_online_username_hint">사용자명</string>
+app_pojavlauncher/src/main/res/values-ko/strings.xml:9:    <string name="login_online_login_label">로그인</string>
+app_pojavlauncher/src/main/res/values-ko/strings.xml:221:    <string name="main_login_done">로그인 완료</string>
+app_pojavlauncher/src/main/res/values-ko/strings.xml:224:    <string name="no_saved_accounts">저장된 계정 없음</string>
+app_pojavlauncher/src/main/res/values-ko/strings.xml:238:    <string name="microsoft_login_retry_later">요청이 너무 많습니다. 잠시후 다시 시도해 주세요.</string>
+app_pojavlauncher/src/main/res/values-ko/strings.xml:372:    <string name="local_login_bad_username_title">사용자 이름 사용 불가</string>
+app_pojavlauncher/src/main/res/values-ko/strings.xml:373:    <string name="local_login_bad_username_text">사용자 이름은 3–16자 이내여야 하며, 라틴 문자, 숫자, 0–9와 _만을 포함해야 합니다.</string>
+app_pojavlauncher/src/main/res/values-ko/strings.xml:403:    <string name="no_minecraft_account_found">Minecraft 계정 없음</string>
+app_pojavlauncher/src/main/res/values-ko/strings.xml:405:    <string name="delete_account_and_login">계정 삭제 후 로그인</string>
+app_pojavlauncher/src/main/res/values-ko/strings.xml:406:    <string name="login_again">다시 로그인해 주세요</string>
+app_pojavlauncher/src/main/res/values-lol-rAA/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-lol-rAA/strings.xml:7:    <string name="login_online_login_label">logout</string>
+app_pojavlauncher/src/main/res/values-lol-rAA/strings.xml:165:    <string name="main_login_done">Login ready sir</string>
+app_pojavlauncher/src/main/res/values-lol-rAA/strings.xml:167:    <string name="no_saved_accounts">No saved accounts for block game need help</string>
+app_pojavlauncher/src/main/res/values-lol-rAA/strings.xml:179:    <string name="microsoft_login_retry_later">too many requestz, purrlease try again later.</string>
+app_pojavlauncher/src/main/res/values-it/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-it/strings.xml:8:    <string name="login_online_username_hint">Nome utente</string>
+app_pojavlauncher/src/main/res/values-it/strings.xml:9:    <string name="login_online_login_label">Accedi</string>
+app_pojavlauncher/src/main/res/values-it/strings.xml:219:    <string name="main_login_done">Login effettuato</string>
+app_pojavlauncher/src/main/res/values-it/strings.xml:222:    <string name="no_saved_accounts">Nessun account salvato</string>
+app_pojavlauncher/src/main/res/values-it/strings.xml:238:    <string name="microsoft_login_retry_later">Troppe richieste, riprova più tardi.</string>
+app_pojavlauncher/src/main/res/values-it/strings.xml:373:    <string name="local_login_bad_username_title">Nome utente non adatto</string>
+app_pojavlauncher/src/main/res/values-it/strings.xml:374:    <string name="local_login_bad_username_text">Il nome utente deve avere una lunghezza compresa tra 3 e 16 caratteri e deve contenere solo lettere latine, numeri 0-9 e trattini bassi.</string>
+app_pojavlauncher/src/main/res/values-it/strings.xml:404:    <string name="no_minecraft_account_found">Nessun account Minecraft trovato</string>
+app_pojavlauncher/src/main/res/values-it/strings.xml:406:    <string name="delete_account_and_login">Elimina account e accedi</string>
+app_pojavlauncher/src/main/res/values-it/strings.xml:407:    <string name="login_again">Per favore esegui nuovamente l\'accesso</string>
+app_pojavlauncher/src/main/res/values-nl/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-nl/strings.xml:7:    <string name="login_online_login_label">Aanmelden</string>
+app_pojavlauncher/src/main/res/values-nl/strings.xml:169:    <string name="main_login_done">Inloggen voltooid</string>
+app_pojavlauncher/src/main/res/values-nl/strings.xml:171:    <string name="no_saved_accounts">Geen opgeslagen accounts</string>
+app_pojavlauncher/src/main/res/values-fil/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-fil/strings.xml:7:    <string name="login_online_login_label">Mag-login</string>
+app_pojavlauncher/src/main/res/values-de/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-de/strings.xml:8:    <string name="login_online_username_hint">Benutzername</string>
+app_pojavlauncher/src/main/res/values-de/strings.xml:9:    <string name="login_online_login_label">Anmelden</string>
+app_pojavlauncher/src/main/res/values-de/strings.xml:222:    <string name="main_login_done">Anmeldung abgeschlossen</string>
+app_pojavlauncher/src/main/res/values-de/strings.xml:225:    <string name="no_saved_accounts">Keine eingespeicherten Konten</string>
+app_pojavlauncher/src/main/res/values-de/strings.xml:240:    <string name="microsoft_login_retry_later">Zu viele Anfragen – bitte versuche es später erneut.</string>
+app_pojavlauncher/src/main/res/values-de/strings.xml:375:    <string name="local_login_bad_username_title">Ungeeigneter Benutzername</string>
+app_pojavlauncher/src/main/res/values-de/strings.xml:376:    <string name="local_login_bad_username_text">Der Benutzername muss zwischen 3–16 Zeichen lang sein und darf nur lateinische Buchstaben, Ziffern 0–9 und Unterstriche enthalten.</string>
+app_pojavlauncher/src/main/res/values-de/strings.xml:406:    <string name="no_minecraft_account_found">Kein Minecraft-Konto gefunden</string>
+app_pojavlauncher/src/main/res/values-de/strings.xml:408:    <string name="delete_account_and_login">Konto löschen und anmelden</string>
+app_pojavlauncher/src/main/res/values-de/strings.xml:409:    <string name="login_again">Bitte melde dich erneut an</string>
+app_pojavlauncher/src/main/res/values-la/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-sk-rSK/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-sk-rSK/strings.xml:7:    <string name="login_online_login_label">Prihlásiť</string>
+app_pojavlauncher/src/main/res/values-sk-rSK/strings.xml:184:    <string name="main_login_done">Prihlásenie bolo dokončené</string>
+app_pojavlauncher/src/main/res/values-sk-rSK/strings.xml:187:    <string name="no_saved_accounts">Žiadne prihlásené účty</string>
+app_pojavlauncher/src/main/res/values-sk-rSK/strings.xml:200:    <string name="microsoft_login_retry_later">Príliš veľa žiadostí. Skúste to neskôr, prosím.</string>
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:8:    <string name="login_online_username_hint">用戶名</string>
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:9:    <string name="login_online_login_label">登入</string>
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:222:    <string name="main_login_done">登入成功</string>
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:225:    <string name="no_saved_accounts">沒有已保存的帳號</string>
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:241:    <string name="microsoft_login_retry_later">您的操作過於頻繁，請稍後重試。</string>
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:382:    <string name="local_login_bad_username_title">用户名非法</string>
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:383:    <string name="local_login_bad_username_text">使用者名稱長度必須介於 3 到 16 個字元之間，且僅能包含拉丁字母、數字 0 到 9 以及底線。</string>
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:413:    <string name="no_minecraft_account_found">未找到 Minecraft 帳號</string>
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:415:    <string name="delete_account_and_login">刪除帳號並登入</string>
+app_pojavlauncher/src/main/res/values-zh-rTW/strings.xml:416:    <string name="login_again">請重新登入</string>
+app_pojavlauncher/src/main/res/values-ru/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-ru/strings.xml:8:    <string name="login_online_username_hint">Имя пользователя</string>
+app_pojavlauncher/src/main/res/values-ru/strings.xml:9:    <string name="login_online_login_label">Войти</string>
+app_pojavlauncher/src/main/res/values-ru/strings.xml:219:    <string name="main_login_done">Вход выполнен</string>
+app_pojavlauncher/src/main/res/values-ru/strings.xml:222:    <string name="no_saved_accounts">Нет сохранённых учётных записей</string>
+app_pojavlauncher/src/main/res/values-ru/strings.xml:237:    <string name="microsoft_login_retry_later">Слишком много запросов, попробуйте ещё раз позже.</string>
+app_pojavlauncher/src/main/res/values-ru/strings.xml:378:    <string name="local_login_bad_username_title">Неподходящее имя пользователя</string>
+app_pojavlauncher/src/main/res/values-ru/strings.xml:379:    <string name="local_login_bad_username_text">Имя пользователя должно быть от 3 до 16 символов в длину и содержать только латинские символы, цифры 0–9 или нижние подчёркивания.</string>
+app_pojavlauncher/src/main/res/values-ru/strings.xml:409:    <string name="no_minecraft_account_found">Не найдено учётной записи Minecraft</string>
+app_pojavlauncher/src/main/res/values-ru/strings.xml:411:    <string name="delete_account_and_login">Удалить учётную запись и войти</string>
+app_pojavlauncher/src/main/res/values-ru/strings.xml:412:    <string name="login_again">Пожалуйста, войдите снова</string>
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:8:    <string name="login_online_username_hint">用户名</string>
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:9:    <string name="login_online_login_label">登录</string>
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:225:    <string name="main_login_done">登录成功</string>
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:228:    <string name="no_saved_accounts">没有已保存的账户</string>
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:244:    <string name="microsoft_login_retry_later">您的操作过于频繁，请稍后重试。</string>
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:385:    <string name="local_login_bad_username_title">用户名非法</string>
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:386:    <string name="local_login_bad_username_text">用户名长度必须在 3–16 个字符之间，并且只能包含拉丁字母、数字 0–9 和下划线。</string>
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:421:    <string name="no_minecraft_account_found">未找到 Minecraft 账户</string>
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:423:    <string name="delete_account_and_login">删除账户并登录</string>
+app_pojavlauncher/src/main/res/values-zh-rCN/strings.xml:424:    <string name="login_again">请重新登录</string>
+app_pojavlauncher/src/main/res/values-da/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-hu/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-hu/strings.xml:8:    <string name="login_online_username_hint">Felhasználónév</string>
+app_pojavlauncher/src/main/res/values-hu/strings.xml:9:    <string name="login_online_login_label">Bejelentkezés</string>
+app_pojavlauncher/src/main/res/values-hu/strings.xml:224:    <string name="main_login_done">Sikeres bejelentkezés!</string>
+app_pojavlauncher/src/main/res/values-hu/strings.xml:227:    <string name="no_saved_accounts">Nincs elmentett fiókok</string>
+app_pojavlauncher/src/main/res/values-hu/strings.xml:242:    <string name="microsoft_login_retry_later">Túl sok próbálkozás, kérlek, próbáld meg újra később</string>
+app_pojavlauncher/src/main/res/values-hu/strings.xml:383:    <string name="local_login_bad_username_title">Nem megfelelő felhasználónév</string>
+app_pojavlauncher/src/main/res/values-hu/strings.xml:384:    <string name="local_login_bad_username_text">A felhasználónév 3—16 karakter hossúnak kell hogy legyen. Csakis latin betűk, számok 0—tól 9—ig és alsóvonalak tartalmazhatnak.</string>
+app_pojavlauncher/src/main/res/values-hu/strings.xml:404:    <string name="no_minecraft_account_found">Egy Minecraft fiók sem található</string>
+app_pojavlauncher/src/main/res/values-hu/strings.xml:405:    <string name="login_again">Kérlek, jelentkezz be újra</string>
+app_pojavlauncher/src/main/res/values-vi/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-vi/strings.xml:8:    <string name="login_online_username_hint">Tên người dùng</string>
+app_pojavlauncher/src/main/res/values-vi/strings.xml:9:    <string name="login_online_login_label">Đăng nhập</string>
+app_pojavlauncher/src/main/res/values-vi/strings.xml:222:    <string name="main_login_done">Đăng nhập hoàn tất</string>
+app_pojavlauncher/src/main/res/values-vi/strings.xml:225:    <string name="no_saved_accounts">Không có tài khoản đã lưu nào</string>
+app_pojavlauncher/src/main/res/values-vi/strings.xml:240:    <string name="microsoft_login_retry_later">Đã gửi quá nhiều yêu cầu, vui lòng thử lại sau.</string>
+app_pojavlauncher/src/main/res/values-vi/strings.xml:381:    <string name="local_login_bad_username_title">Tên người dùng không phù hợp</string>
+app_pojavlauncher/src/main/res/values-vi/strings.xml:382:    <string name="local_login_bad_username_text">Tên người dùng phải dài từ 3–16 ký tự và chỉ được chứa chữ cái latin, các số từ 0–9 và dấu gạch dưới.</string>
+app_pojavlauncher/src/main/res/values-vi/strings.xml:412:    <string name="no_minecraft_account_found">Không tìm thấy tài khoản Minecraft nào</string>
+app_pojavlauncher/src/main/res/values-vi/strings.xml:414:    <string name="delete_account_and_login">Xoá tài khoản và đăng nhập</string>
+app_pojavlauncher/src/main/res/values-vi/strings.xml:415:    <string name="login_again">Vui lòng đăng nhập lại</string>
+app_pojavlauncher/src/main/res/values-sr-rCS/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-th/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-th/strings.xml:7:    <string name="login_online_login_label">เข้าสู่ระบบ</string>
+app_pojavlauncher/src/main/res/values-th/strings.xml:195:    <string name="main_login_done">ล็อกอินเเล้ว</string>
+app_pojavlauncher/src/main/res/values-th/strings.xml:198:    <string name="no_saved_accounts">ไม่มีบัญชีที่เชฟไว้</string>
+app_pojavlauncher/src/main/res/values-th/strings.xml:213:    <string name="microsoft_login_retry_later">ส่งคำขอบ่อยเกินไป, กรุณาลองอีกครั้งภายหลัง</string>
+app_pojavlauncher/src/main/res/values-el/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-el/strings.xml:7:    <string name="login_online_login_label">Είσοδος</string>
+app_pojavlauncher/src/main/res/values-el/strings.xml:191:    <string name="main_login_done">Η σύνδεση ολοκληρώθηκε</string>
+app_pojavlauncher/src/main/res/values-el/strings.xml:193:    <string name="no_saved_accounts">Δεν υπάρχουν αποθηκευμένοι λογαριασμοί</string>
+app_pojavlauncher/src/main/res/values-el/strings.xml:206:    <string name="microsoft_login_retry_later">Πάρα πολλά αιτήματα, παρακαλώ προσπαθήστε ξανά αργότερα.</string>
+app_pojavlauncher/src/main/res/values-az-rAZ/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-az-rAZ/strings.xml:7:    <string name="login_online_login_label">Daxil ol</string>
+app_pojavlauncher/src/main/res/values-az-rAZ/strings.xml:160:    <string name="main_login_done">Giriş tamamlandı</string>
+app_pojavlauncher/src/main/res/values-az-rAZ/strings.xml:162:    <string name="no_saved_accounts">Saxlanmış hesab yoxdur</string>
+app_pojavlauncher/src/main/res/values-az-rAZ/strings.xml:175:    <string name="microsoft_login_retry_later">Həddindən artıq sorğu var, sonra yenidən cəhd edin.</string>
+app_pojavlauncher/src/main/res/values-tt/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-tt/strings.xml:7:    <string name="login_online_username_hint">Кулланучының исеме</string>
+app_pojavlauncher/src/main/res/values-tt/strings.xml:8:    <string name="login_online_login_label">Керергә</string>
+app_pojavlauncher/src/main/res/values-tt/strings.xml:126:    <string name="main_login_done">Керү үтәлде</string>
+app_pojavlauncher/src/main/res/values-tt/strings.xml:128:    <string name="no_saved_accounts">Сакланган аккаунтлар юк</string>
+app_pojavlauncher/src/main/res/values-tt/strings.xml:146:    <string name="no_minecraft_account_found">Minecraft аккаунт юк</string>
+app_pojavlauncher/src/main/res/values-tr/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-tr/strings.xml:8:    <string name="login_online_username_hint">Kullanıcı Adı</string>
+app_pojavlauncher/src/main/res/values-tr/strings.xml:9:    <string name="login_online_login_label">Giriş yap</string>
+app_pojavlauncher/src/main/res/values-tr/strings.xml:222:    <string name="main_login_done">Giriş tamamlandı</string>
+app_pojavlauncher/src/main/res/values-tr/strings.xml:225:    <string name="no_saved_accounts">Kayıtlı hesap yok</string>
+app_pojavlauncher/src/main/res/values-tr/strings.xml:240:    <string name="microsoft_login_retry_later">Çok fazla istek, Lütfen daha sonra tekrar deneyin.</string>
+app_pojavlauncher/src/main/res/values-tr/strings.xml:381:    <string name="local_login_bad_username_title">Kullanım için uyumsuz Kullanıcı adı</string>
+app_pojavlauncher/src/main/res/values-tr/strings.xml:382:    <string name="local_login_bad_username_text">Kullanıcı adı 3–16 karakter uzunluğunda olmalı ve yalnızca latin harfleri, 0–9 arası rakamları ve alt çizgileri (_) içermelidir.</string>
+app_pojavlauncher/src/main/res/values-tr/strings.xml:412:    <string name="no_minecraft_account_found">Minecraft hesabı bulunamadı</string>
+app_pojavlauncher/src/main/res/values-tr/strings.xml:414:    <string name="delete_account_and_login">Hesabı sil ve giriş yap</string>
+app_pojavlauncher/src/main/res/values-tr/strings.xml:415:    <string name="login_again">Lütfen Tekrar Giriş yapınız</string>
+app_pojavlauncher/src/main/res/values/strings.xml:10:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values/strings.xml:11:    <string name="login_online_username_hint">Username</string>
+app_pojavlauncher/src/main/res/values/strings.xml:12:    <string name="login_online_login_label">Login</string>
+app_pojavlauncher/src/main/res/values/strings.xml:258:    <string name="main_login_done">Login done</string>
+app_pojavlauncher/src/main/res/values/strings.xml:261:    <string name="no_saved_accounts">No saved accounts</string>
+app_pojavlauncher/src/main/res/values/strings.xml:276:    <string name="microsoft_login_retry_later">Too many requests, please try again later.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:432:    <string name="local_login_bad_username_title">Unsuitable username</string>
+app_pojavlauncher/src/main/res/values/strings.xml:433:    <string name="local_login_bad_username_text">The username must be between 3–16 characters long, and must only contain latin letters, numbers 0–9 and underscores.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:464:    <string name="no_minecraft_account_found">No Minecraft Account Found</string>
+app_pojavlauncher/src/main/res/values/strings.xml:466:    <string name="delete_account_and_login">Delete account and log in</string>
+app_pojavlauncher/src/main/res/values/strings.xml:467:    <string name="login_again">Please log in again</string>
+app_pojavlauncher/src/main/res/values/strings.xml:510:    <string name="minecraft_no_username_set">Your Minecraft username is not set! You must set it in the Minecraft website before being able to log in!</string>
+app_pojavlauncher/src/main/res/values-bn-rIN/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-bn-rIN/strings.xml:7:    <string name="login_error_invalid_username">অবৈধ নাম, নামটি 3-16 অক্ষরের মধ্যে হওয়া উচিত, শুধুমাত্র A-Z, A-Z, 0-9 এবং আন্ডারস্কোর থাকা উচিত.</string>
+app_pojavlauncher/src/main/res/values-bn-rIN/strings.xml:8:    <string name="login_microsoft">মাইক্রোসফট লগইন</string>
+app_pojavlauncher/src/main/res/values-ar/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-ar/strings.xml:7:    <string name="login_online_username_hint">اسم المستخدم</string>
+app_pojavlauncher/src/main/res/values-ar/strings.xml:8:    <string name="login_online_login_label">تسجيل الدخول</string>
+app_pojavlauncher/src/main/res/values-ar/strings.xml:198:    <string name="main_login_done">تم تسجيل الدخول</string>
+app_pojavlauncher/src/main/res/values-ar/strings.xml:201:    <string name="no_saved_accounts">لا توجد حسابات محفوظة</string>
+app_pojavlauncher/src/main/res/values-ar/strings.xml:216:    <string name="microsoft_login_retry_later">طلبات كثيرة جداً، الرجاء المحاولة مرة أخرى لاحقاً.</string>
+app_pojavlauncher/src/main/res/values-ar/strings.xml:345:    <string name="local_login_bad_username_title">اسم المستخدم غير مناسب</string>
+app_pojavlauncher/src/main/res/values-ar/strings.xml:346:    <string name="local_login_bad_username_text">يجب أن يكون اسم المستخدم بين 3–16 حرفاً، ويجب أن يحتوي فقط على أحرف لاتينية وأرقام 0-9 وتسطيرات سفلية.</string>
+app_pojavlauncher/src/main/res/values-ba/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-ba/strings.xml:7:    <string name="login_online_login_label">Керергә</string>
+app_pojavlauncher/src/main/res/values-ro/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-ro/strings.xml:7:    <string name="login_online_login_label">Autentificare</string>
+app_pojavlauncher/src/main/res/values-ro/strings.xml:145:    <string name="main_login_done">Autentificare finalizată</string>
+app_pojavlauncher/src/main/res/values-ro/strings.xml:148:    <string name="no_saved_accounts">Niciun cont salvat</string>
+app_pojavlauncher/src/main/res/values-ro/strings.xml:159:    <string name="microsoft_login_retry_later">Prea multe solicitări, vă rugăm să încercaţi din nou mai târziu.</string>
+app_pojavlauncher/src/main/res/values-hi/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-hi/strings.xml:7:    <string name="login_online_login_label">लॉगिन</string>
+app_pojavlauncher/src/main/res/values-pt/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-pt/strings.xml:7:    <string name="login_online_login_label">Iniciar sessão</string>
+app_pojavlauncher/src/main/res/values-pl/strings.xml:7:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-pl/strings.xml:8:    <string name="login_online_username_hint">Nazwa użytkownika</string>
+app_pojavlauncher/src/main/res/values-pl/strings.xml:9:    <string name="login_online_login_label">Zaloguj się</string>
+app_pojavlauncher/src/main/res/values-pl/strings.xml:224:    <string name="main_login_done">Logowanie zakończone</string>
+app_pojavlauncher/src/main/res/values-pl/strings.xml:227:    <string name="no_saved_accounts">Brak zapisanych kont</string>
+app_pojavlauncher/src/main/res/values-pl/strings.xml:242:    <string name="microsoft_login_retry_later">Zbyt wiele żądań. Spróbuj ponownie później.</string>
+app_pojavlauncher/src/main/res/values-pl/strings.xml:383:    <string name="local_login_bad_username_title">Nieodpowiednia nazwa użytkownika</string>
+app_pojavlauncher/src/main/res/values-pl/strings.xml:384:    <string name="local_login_bad_username_text">Nazwa użytkownika musi mieć długość od 3 do 16 znaków i może zawierać wyłącznie litery alfabetu łacińskiego, cyfry od 0 do 9 oraz znaki podkreślenia.</string>
+app_pojavlauncher/src/main/res/values-pl/strings.xml:414:    <string name="no_minecraft_account_found">Nie znaleziono konta Minecraft</string>
+app_pojavlauncher/src/main/res/values-pl/strings.xml:416:    <string name="delete_account_and_login">Usuń konto i zaloguj się</string>
+app_pojavlauncher/src/main/res/values-pl/strings.xml:417:    <string name="login_again">Zaloguj się ponownie</string>
+app_pojavlauncher/src/main/res/values-et-rEE/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-et-rEE/strings.xml:7:    <string name="login_online_login_label">Logi sisse</string>
+app_pojavlauncher/src/main/res/values-et-rEE/strings.xml:119:    <string name="main_login_done">Sisenemine õnnestus</string>
+app_pojavlauncher/src/main/res/values-ca/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-ca/strings.xml:7:    <string name="login_online_login_label">Iniciar sessió</string>
+app_pojavlauncher/src/main/res/values-ca/strings.xml:107:    <string name="main_login_done">Inici de sessió completat</string>
+app_pojavlauncher/src/main/res/values-ca/strings.xml:109:    <string name="no_saved_accounts">No h han comptes guardats</string>
+app_pojavlauncher/src/main/res/values-ca/strings.xml:122:    <string name="microsoft_login_retry_later">Massa peticions, si us plau, torneu-ho a intentar més tard.</string>
+app_pojavlauncher/src/main/res/values-bn-rBD/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-bn-rBD/strings.xml:7:    <string name="login_online_login_label">লগইন</string>
+app_pojavlauncher/src/main/res/values-mn-rMN/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-mn-rMN/strings.xml:7:    <string name="login_online_login_label">Нэвтрэх</string>
+app_pojavlauncher/src/main/res/values-kk/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-kk/strings.xml:7:    <string name="login_online_login_label">Кіру</string>
+app_pojavlauncher/src/main/res/values-fa-rIR/strings.xml:6:    <!-- Login strings -->
+app_pojavlauncher/src/main/res/values-fa-rIR/strings.xml:7:    <string name="login_online_username_hint">نام کاربری</string>
+app_pojavlauncher/src/main/res/values-fa-rIR/strings.xml:8:    <string name="login_online_login_label">ورود</string>
+app_pojavlauncher/src/main/res/values-fa-rIR/strings.xml:190:    <string name="main_login_done">ورود انجام شد</string>
+app_pojavlauncher/src/main/res/values-fa-rIR/strings.xml:193:    <string name="no_saved_accounts">هیچ حساب ذخیره شده ای وجود ندارد</string>
+app_pojavlauncher/build.gradle:133:            resValue 'string', 'storageProviderAuthorities', 'org.angelauramc.amethyst.scoped.gamefolder.debug'
+app_pojavlauncher/build.gradle:134:            resValue 'string', 'shareProviderAuthority', 'org.angelauramc.amethyst.scoped.controlfolder.debug'
+app_pojavlauncher/build.gradle:156:            resValue 'string', 'storageProviderAuthorities', 'org.angelauramc.amethyst.scoped.gamefolder'
+--- LAUNCHER CALLS ---
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:171:                ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java:242:            ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/extra/ExtraConstants.java:15:    public static final String SELECT_AUTH_METHOD = "start_login_procedure";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/extra/ExtraConstants.java:21:    public static final String LAUNCH_GAME = "launch_game";
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:81:                            ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MainMenuFragment.java:85:            } else ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:192:            ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:337:        ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:339:        ExtraCore.addExtraListener(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:379:        ExtraCore.removeExtraListenerFromValue(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/LauncherActivity.java:380:        ExtraCore.removeExtraListenerFromValue(ExtraConstants.LAUNCH_GAME, mLaunchGameListener);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:403:    public static void launchMinecraft(final AppCompatActivity activity, MinecraftAccount minecraftAccount,
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:455:        String[] launchArgs = getMinecraftClientArgs(minecraftAccount, versionInfo, gamedir);
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:798:    public static String[] getMinecraftClientArgs(MinecraftAccount profile, JMinecraftVersionList.Version versionInfo, File gameDir) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/MainActivity.java:499:        Tools.launchMinecraft(this, minecraftAccount, minecraftProfile, versionId, requiredJavaVersion);
+--- ACCOUNT CLASS ---
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/tasks/MinecraftDownloader.java:64:    private boolean isLocalProfile = false;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:22:public class MinecraftAccount {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:48:    public boolean isLocal(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:52:    public boolean isDemo(){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:73:    public static MinecraftAccount load(String name) {
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:74:        if(!accountExists(name)) return null;
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java:128:    private static boolean accountExists(String username){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1800:    public static void switchDemo(boolean isDemo){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1824:    public static boolean isDemoProfile(Context ctx){
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/Tools.java:1829:    public static boolean isLocalProfile(Context ctx){
+--- AUTH PACKAGES ---
+app_pojavlauncher/src/main/java/com/kdt/mcgui/mcAccountSpinner.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/authenticator/microsoft/MicrosoftBackgroundLogin.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/LocalLoginFragment.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/MicrosoftLoginFragment.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileTypeSelectFragment.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/ProfileEditorFragment.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/fragments/SelectAuthFragment.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/MinecraftAccount.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/LauncherProfiles.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/MinecraftProfile.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/MinecraftAuthenticationDatabase.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/value/launcherprofiles/MinecraftLauncherProfiles.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/PojavProfile.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/profiles/ProfileAdapterExtra.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/profiles/ProfileIconCache.java
+app_pojavlauncher/src/main/java/net/kdt/pojavlaunch/profiles/ProfileAdapter.java
+--- RESOURCE STRINGS ---
+app_pojavlauncher/src/main/res/values/strings.xml:11:    <string name="login_online_username_hint">Username</string>
+app_pojavlauncher/src/main/res/values/strings.xml:12:    <string name="login_online_login_label">Login</string>
+app_pojavlauncher/src/main/res/values/strings.xml:18:    <string name="warning_remove_account">This account will be removed!</string>
+app_pojavlauncher/src/main/res/values/strings.xml:186:    <string name="mcl_memory_allocation_subtitle">Controls how much memory is given to Minecraft.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:258:    <string name="main_login_done">Login done</string>
+app_pojavlauncher/src/main/res/values/strings.xml:259:    <string name="main_add_account">Add account</string>
+app_pojavlauncher/src/main/res/values/strings.xml:261:    <string name="no_saved_accounts">No saved accounts</string>
+app_pojavlauncher/src/main/res/values/strings.xml:262:    <string name="mc_download_failed">Failed to download Minecraft! This could be due to bad network connection, incorrectly placed files, trying to download Minecraft from a Local account, etc..</string>
+app_pojavlauncher/src/main/res/values/strings.xml:264:    <string name="xerr_no_account">You don\'t seem to have an Xbox Live account. Please log in once on https://minecraft.net/ and try again.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:265:    <string name="xerr_adult_verification">An adult needs to verify your account.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:266:    <string name="xerr_child">Your account is a child account, and needs to be added into a Family in order to log in.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:267:    <string name="minecraft_not_owned">It seems like this account does not have a Minecraft profile. If you have Xbox Game Pass, please log in on https://minecraft.net/ and set it up.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:276:    <string name="microsoft_login_retry_later">Too many requests, please try again later.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:301:    <string name="preference_force_big_core_desc">Forces the Minecraft render thread to run on the core with the highest maximum frequency.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:311:    <string name="fabric_dl_game_version">Minecraft version</string>
+app_pojavlauncher/src/main/res/values/strings.xml:432:    <string name="local_login_bad_username_title">Unsuitable username</string>
+app_pojavlauncher/src/main/res/values/strings.xml:433:    <string name="local_login_bad_username_text">The username must be between 3–16 characters long, and must only contain latin letters, numbers 0–9 and underscores.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:461:    <string name="demo_versions_supported">Only Vanilla 1.3.1 and above are supported on demo accounts</string>
+app_pojavlauncher/src/main/res/values/strings.xml:463:    <string name="change_account">Please change accounts to use this function</string>
+app_pojavlauncher/src/main/res/values/strings.xml:464:    <string name="no_minecraft_account_found">No Minecraft Account Found</string>
+app_pojavlauncher/src/main/res/values/strings.xml:465:    <string name="feature_requires_java_account">This feature requires a Microsoft account that owns Minecraft Java Edition.</string>
+app_pojavlauncher/src/main/res/values/strings.xml:466:    <string name="delete_account_and_login">Delete account and log in</string>
+app_pojavlauncher/src/main/res/values/strings.xml:467:    <string name="login_again">Please log in again</string>
+app_pojavlauncher/src/main/res/values/strings.xml:468:    <string name="account_corrupted">Selected account is corrupted</string>
+app_pojavlauncher/src/main/res/values/strings.xml:510:    <string name="minecraft_no_username_set">Your Minecraft username is not set! You must set it in the Minecraft website before being able to log in!</string>

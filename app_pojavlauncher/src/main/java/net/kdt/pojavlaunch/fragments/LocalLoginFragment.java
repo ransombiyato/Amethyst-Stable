@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.fragments;
 
-import static net.kdt.pojavlaunch.Tools.hasOnlineProfile;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -26,44 +24,48 @@ public class LocalLoginFragment extends Fragment {
     private final Pattern mUsernameValidationPattern;
     private EditText mUsernameEditText;
 
-    public LocalLoginFragment(){
+    public LocalLoginFragment() {
         super(R.layout.fragment_local_login);
         mUsernameValidationPattern = Pattern.compile("^[a-zA-Z0-9_]*$");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // This is overkill but meh
-        if (!hasOnlineProfile()){
-            Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, null);
-        }
         mUsernameEditText = view.findViewById(R.id.login_edit_email);
+
         view.findViewById(R.id.login_button).setOnClickListener(v -> {
-            if(!checkEditText()) {
+            if (!checkEditText()) {
                 Context context = v.getContext();
-                Tools.dialog(context, context.getString(R.string.local_login_bad_username_title), context.getString(R.string.local_login_bad_username_text));
+                Tools.dialog(
+                        context,
+                        context.getString(R.string.local_login_bad_username_title),
+                        context.getString(R.string.local_login_bad_username_text)
+                );
                 return;
             }
 
-            ExtraCore.setValue(ExtraConstants.MOJANG_LOGIN_TODO, new String[]{
-                    mUsernameEditText.getText().toString(), "" });
+            ExtraCore.setValue(
+                    ExtraConstants.MOJANG_LOGIN_TODO,
+                    new String[]{mUsernameEditText.getText().toString(), ""}
+            );
 
-            Tools.swapFragment(requireActivity(), MainMenuFragment.class, MainMenuFragment.TAG, null);
+            Tools.swapFragment(
+                    requireActivity(),
+                    MainMenuFragment.class,
+                    MainMenuFragment.TAG,
+                    null
+            );
         });
     }
 
-
-    /** @return Whether the mail (and password) text are eligible to make an auth request  */
-    private boolean checkEditText(){
-
+    private boolean checkEditText() {
         String text = mUsernameEditText.getText().toString();
-
         Matcher matcher = mUsernameValidationPattern.matcher(text);
+
         return !(text.isEmpty()
                 || text.length() < 3
                 || text.length() > 16
                 || !matcher.find()
-                || new File(Tools.DIR_ACCOUNT_NEW + "/" + text + ".json").exists()
-        );
+                || new File(Tools.DIR_ACCOUNT_NEW + "/" + text + ".json").exists());
     }
 }

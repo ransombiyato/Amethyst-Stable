@@ -61,7 +61,6 @@ public class MinecraftDownloader {
 
     private static final ThreadLocal<byte[]> sThreadLocalDownloadBuffer = new ThreadLocal<>();
 
-    private boolean isLocalProfile = false;
     private boolean isOnline;
 
     /**
@@ -74,47 +73,82 @@ public class MinecraftDownloader {
     public void start(@Nullable Activity activity, @Nullable JMinecraftVersionList.Version version,
                       @NonNull String realVersion,
                       @NonNull AsyncMinecraftDownloader.DoneListener listener) {
-        if(activity != null){
-            isLocalProfile = Tools.isLocalProfile(activity);
+
+        if (activity != null) {
             isOnline = Tools.isOnline(activity);
             Tools.switchDemo(Tools.isDemoProfile(activity));
-
         } else {
-            isLocalProfile = true;
+            isOnline = false;
             Tools.switchDemo(true);
         }
 
         sExecutorService.execute(() -> {
             try {
-                if(isLocalProfile || !isOnline) {
-                    String versionMessage = realVersion; // Use provided version unless we find its a modded instance
+                // Download Minecraft independently of the selected account.
+                // Local/offline accounts can still download game files when online.
+                if (!isOnline) {
+                    String versionMessage = realVersion;
 
-                    // See if provided version is a modded version and if that version depends on another jar, check for presence of both jar's .json.
                     try {
-                        // This reads the .json associated with the provided version. If it fails, we can assume it's not installed.
-                        File providedJsonFile = new File(Tools.DIR_HOME_VERSION + "/" + realVersion + "/" + realVersion + ".json");
-                        JMinecraftVersionList.Version providedJson = Tools.GLOBAL_GSON.fromJson(Tools.read(providedJsonFile.getAbsolutePath()), JMinecraftVersionList.Version.class);
+                        File providedJsonFile = new File(
+                                Tools.DIR_HOME_VERSION + "/" + realVersion + "/" +
+                                realVersion + ".json"
+                        );
 
-                        // This checks if running modded version that depends on other jars, so we use that for the error message.
-                        File vanillaJsonFile = new File(Tools.DIR_HOME_VERSION + "/" + providedJson.inheritsFrom + "/" + providedJson.inheritsFrom + ".json");
-                        versionMessage = providedJson.inheritsFrom != null ? providedJson.inheritsFrom : versionMessage;
+                        if (providedJsonFile.exists()) {
+                            JMinecraftVersionList.Version providedJson =
+                                    Tools.GLOBAL_GSON.fromJson(
+                                            Tools.read(providedJsonFile.getAbsolutePath()),
+                                            JMinecraftVersionList.Version.class
+                                    );
 
-                        // Ensure they're both not some 0 byte corrupted json
-                        if (providedJsonFile.length() == 0 || vanillaJsonFile.exists() && vanillaJsonFile.length() == 0){
-                            throw new RuntimeException("Minecraft "+versionMessage+ " is needed by " +realVersion); }
+                            if (providedJson != null && providedJson.inheritsFrom != null) {
+                                versionMessage = providedJson.inheritsFrom;
+                            }
 
-                        listener.onDownloadDone();
+                            File vanillaJsonFile = providedJson != null &&
+                                    providedJson.inheritsFrom != null
+                                    ? new File(
+                                            Tools.DIR_HOME_VERSION + "/" +
+                                            providedJson.inheritsFrom + "/" +
+                                            providedJson.inheritsFrom + ".json"
+                                    )
+                                    : null;
+
+                            if (providedJsonFile.length() == 0 ||
+                                    (vanillaJsonFile != null &&
+                                     vanillaJsonFile.exists() &&
+                                     vanillaJsonFile.length() == 0)) {
+                                throw new RuntimeException(
+                                        "Minecraft " + versionMessage +
+                                        " is needed by " + realVersion
+                                );
+                            }
+
+                            listener.onDownloadDone();
+                        } else {
+                            Tools.showErrorRemote(
+                                    versionMessage +
+                                    " is not currently installed. Please ensure you have an internet connection",
+                                    null
+                            );
+                        }
                     } catch (Exception e) {
-                        String tryagain = !isOnline ? "Please ensure you have an internet connection" : "Please try again on your Microsoft Account";
-                        Tools.showErrorRemote(versionMessage + " is not currently installed. "+ tryagain, e);
+                        Tools.showErrorRemote(
+                                versionMessage +
+                                " is not currently installed. Please ensure you have an internet connection",
+                                e
+                        );
                     }
-                }else {
-                downloadGame(activity, version, realVersion);
-                listener.onDownloadDone();
+                } else {
+                    // This is the important part: account type no longer controls downloading.
+                    downloadGame(activity, version, realVersion);
+                    listener.onDownloadDone();
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 listener.onDownloadFailed(e);
             }
+
             ProgressLayout.clearProgress(ProgressLayout.DOWNLOAD_MINECRAFT);
         });
     }
