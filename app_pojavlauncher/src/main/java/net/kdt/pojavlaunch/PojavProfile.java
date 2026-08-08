@@ -24,7 +24,19 @@ public class PojavProfile {
 	}
 
     public static MinecraftAccount getCurrentProfileContent(@NonNull Context ctx, @Nullable String profileName) {
-        return MinecraftAccount.load(profileName == null ? getCurrentProfileName(ctx) : profileName);
+        String name = profileName == null ? getCurrentProfileName(ctx) : profileName;
+        MinecraftAccount account = MinecraftAccount.load(name);
+
+        if (account == null) {
+            account = new MinecraftAccount();
+            account.username = "Steve";
+            account.accessToken = "0";
+            account.clientToken = "0";
+            account.profileId = "00000000-0000-0000-0000-000000000000";
+            account.isMicrosoft = false;
+        }
+
+        return account;
     }
 
     public static String getCurrentProfileName(Context ctx) {

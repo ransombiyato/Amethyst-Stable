@@ -187,7 +187,7 @@ public class LauncherActivity extends BaseActivity {
             return false;
         }
 
-        if(mAccountSpinner.getSelectedAccount() == null){
+        if(false && mAccountSpinner.getSelectedAccount() == null){
             Toast.makeText(this, R.string.no_saved_accounts, Toast.LENGTH_LONG).show();
             ExtraCore.setValue(ExtraConstants.SELECT_AUTH_METHOD, true);
             return false;
@@ -223,7 +223,7 @@ public class LauncherActivity extends BaseActivity {
                 String jsonPath = LWJGL3ifyUtils.getJsonPath(LWJGL3ifyUtils.getProfileID(lwjgl3ifyJar));
                 File lwjgl3ifyClientJar = new File(jsonPath.replace(".json", ".jar"));
                 if (!lwjgl3ifyClientJar.exists()){
-                    if (mAccountSpinner.getSelectedAccount().isLocal() || !isOnline(this)){
+                    if (!isOnline(this)){
                         Tools.dialogOnUiThread(this, R.string.global_error, R.string.mc_download_failed);
                         return false;
                     }
@@ -237,7 +237,7 @@ public class LauncherActivity extends BaseActivity {
         JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(normalizedVersionId);
 
         // Do not load when is a modded version or older than minecraft 1.3 on demo account
-        if (mAccountSpinner.getSelectedAccount().isDemo()) {
+        if (false && mAccountSpinner.getSelectedAccount().isDemo()) {
             boolean isOlderThan13 = true;
 
             if (mcVersion != null) {
