@@ -41,6 +41,7 @@ public class MiniGameActivity extends AppCompatActivity {
     private int powerUpType;
 
     private CountDownTimer timer;
+    private long remainingMillis;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final Runnable nextRoundRunnable = () -> {
         if (!isFinishing() && !isDestroyed() && !gameOver) {
@@ -168,9 +169,11 @@ public class MiniGameActivity extends AppCompatActivity {
     }
 
     private void startTimer(long duration) {
+        remainingMillis = duration;
         timer = new CountDownTimer(duration, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
+                remainingMillis = millisUntilFinished;
                 if (!hazardRound) {
                     statusText.setText(
                             "TIME: " + ((millisUntilFinished + 99) / 1000)
@@ -231,7 +234,7 @@ public class MiniGameActivity extends AppCompatActivity {
 
         // Reaction round: clicking too late counts as a miss.
         if (gameType == 1 && timer != null) {
-            correct = timer.getMillisUntilFinished() > 1200;
+            correct = remainingMillis > 1200;
         }
 
         cancelTimer();
