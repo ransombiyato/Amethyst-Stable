@@ -248,7 +248,12 @@ public class MultiRTUtils {
 
             final String tarEntryName = tarEntry.getName();
             // publishProgress(null, "Unpacking " + tarEntry.getName());
-            ProgressLayout.setProgress(ProgressLayout.UNPACK_RUNTIME, 100, R.string.global_unpacking, tarEntryName);
+            ProgressLayout.setProgress(
+                    ProgressLayout.UNPACK_RUNTIME,
+                    0,
+                    R.string.global_unpacking,
+                    tarEntryName
+            );
 
             File destPath = new File(dest, tarEntry.getName());
             net.kdt.pojavlaunch.utils.FileUtils.ensureParentDirectory(destPath);
@@ -265,7 +270,29 @@ public class MultiRTUtils {
                 net.kdt.pojavlaunch.utils.FileUtils.ensureDirectory(destPath);
             } else if (!destPath.exists() || destPath.length() != tarEntry.getSize()) {
                 FileOutputStream os = new FileOutputStream(destPath);
-                IOUtils.copyLarge(tarIn, os, buffer);
+                long copied = 0;
+                long entrySize = tarEntry.getSize();
+                int read;
+                int lastProgress = -1;
+
+                while (entrySize > 0 && copied < entrySize &&
+                        (read = tarIn.read(buffer, 0,
+                                (int) Math.min(buffer.length, entrySize - copied))) != -1) {
+                    os.write(buffer, 0, read);
+                    copied += read;
+
+                    int progress = (int) Math.min(100L, copied * 100L / entrySize);
+                    if (progress != lastProgress) {
+                        lastProgress = progress;
+                        ProgressLayout.setProgress(
+                                ProgressLayout.UNPACK_RUNTIME,
+                                progress,
+                                R.string.global_unpacking,
+                                tarEntryName
+                        );
+                    }
+                }
+
                 os.close();
             }
             tarEntry = tarIn.getNextTarEntry();
