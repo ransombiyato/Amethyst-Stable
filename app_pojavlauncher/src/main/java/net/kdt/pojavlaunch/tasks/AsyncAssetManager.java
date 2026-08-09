@@ -92,6 +92,8 @@ public class AsyncAssetManager {
                 );
             } catch (Throwable t) {
                 Log.e("JREAuto", "Java runtime setup failed", t);
+            } finally {
+                ProgressLayout.clearProgress(ProgressLayout.UNPACK_RUNTIME);
             }
         });
     }
