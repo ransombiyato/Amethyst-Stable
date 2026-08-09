@@ -49,7 +49,17 @@ public class TextProgressBar extends ProgressBar {
         int xPos = (int) Math.max(Math.min((getProgress() * getWidth() / getMax()) + mTextPadding, getWidth() - mTextPaint.measureText(mText) - mTextPadding) , mTextPadding);
         int yPos = (int) ((getHeight() / 2) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2)) ;
 
-        canvas.drawText(mText, xPos, yPos, mTextPaint);
+        String displayText = getProgress() >= 0 && getProgress() <= getMax()
+                ? getProgress() + "% — " + mText
+                : mText;
+        xPos = (int) Math.max(
+                Math.min(
+                        (getProgress() * getWidth() / getMax()) + mTextPadding,
+                        getWidth() - mTextPaint.measureText(displayText) - mTextPadding
+                ),
+                mTextPadding
+        );
+        canvas.drawText(displayText, xPos, yPos, mTextPaint);
     }
 
 
