@@ -46,13 +46,15 @@ public class NewJREUtil {
 
     private static boolean unpackInternalRuntime(AssetManager assetManager, InternalRuntime internalRuntime, String version) {
         try {
-            MultiRTUtils.installRuntimeNamedBinpack(
-                    assetManager.open(internalRuntime.path+"/universal.tar.xz"),
-                    assetManager.open(internalRuntime.path+"/bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz"),
-                    internalRuntime.name, version);
+            MultiRTUtils.installRuntimeNamed(
+                    NATIVE_LIB_DIR,
+                    assetManager.open(internalRuntime.path + "/universal.tar.xz"),
+                    internalRuntime.name
+            );
+
             MultiRTUtils.postPrepare(internalRuntime.name);
             return true;
-        }catch (IOException e) {
+        } catch (IOException e) {
             Log.e("NewJREAuto", "Internal JRE unpack failed", e);
             return false;
         }
