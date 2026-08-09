@@ -1210,6 +1210,8 @@ public final class Tools {
     }
 
     public static String[] generateLibClasspath(JMinecraftVersionList.Version info) {
+        iLwjglVersion = 0;
+        sLwjglVersion = null;
         List<String> libDir = new ArrayList<>();
         for (DependentLibrary libItem: info.libraries) {
             // Look for LWJGL version
