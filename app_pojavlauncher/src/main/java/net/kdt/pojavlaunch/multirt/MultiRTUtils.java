@@ -237,10 +237,11 @@ public class MultiRTUtils {
 
     private static void uncompressTarXZ(final InputStream tarFileInputStream, final File dest) throws IOException {
         net.kdt.pojavlaunch.utils.FileUtils.ensureDirectory(dest);
+        TarArchiveInputStream tarIn = null;
         try {
 
         byte[] buffer = new byte[8192];
-        TarArchiveInputStream tarIn = new TarArchiveInputStream(
+        tarIn = new TarArchiveInputStream(
                 new XZCompressorInputStream(tarFileInputStream)
         );
         TarArchiveEntry tarEntry = tarIn.getNextTarEntry();
@@ -270,36 +271,37 @@ public class MultiRTUtils {
             } else if (tarEntry.isDirectory()) {
                 net.kdt.pojavlaunch.utils.FileUtils.ensureDirectory(destPath);
             } else if (!destPath.exists() || destPath.length() != tarEntry.getSize()) {
-                FileOutputStream os = new FileOutputStream(destPath);
-                long copied = 0;
-                long entrySize = tarEntry.getSize();
-                int read;
-                int lastProgress = -1;
+                try (FileOutputStream os = new FileOutputStream(destPath)) {
+                    long copied = 0;
+                    long entrySize = tarEntry.getSize();
+                    int read;
+                    int lastProgress = -1;
 
-                while (entrySize > 0 && copied < entrySize &&
-                        (read = tarIn.read(buffer, 0,
-                                (int) Math.min(buffer.length, entrySize - copied))) != -1) {
-                    os.write(buffer, 0, read);
-                    copied += read;
+                    while (entrySize > 0 && copied < entrySize &&
+                            (read = tarIn.read(buffer, 0,
+                                    (int) Math.min(buffer.length, entrySize - copied))) != -1) {
+                        os.write(buffer, 0, read);
+                        copied += read;
 
-                    int progress = (int) Math.min(100L, copied * 100L / entrySize);
-                    if (progress != lastProgress) {
-                        lastProgress = progress;
-                        ProgressLayout.setProgress(
-                                ProgressLayout.UNPACK_RUNTIME,
-                                progress,
-                                R.string.global_unpacking,
-                                tarEntryName
-                        );
+                        int progress = (int) Math.min(100L, copied * 100L / entrySize);
+                        if (progress != lastProgress) {
+                            lastProgress = progress;
+                            ProgressLayout.setProgress(
+                                    ProgressLayout.UNPACK_RUNTIME,
+                                    progress,
+                                    R.string.global_unpacking,
+                                    tarEntryName
+                            );
+                        }
                     }
                 }
-
-                os.close();
             }
             tarEntry = tarIn.getNextTarEntry();
         }
         } finally {
-            try { tarIn.close(); } catch (IOException ignored) {}
+            if (tarIn != null) {
+                try { tarIn.close(); } catch (IOException ignored) {}
+            }
             ProgressLayout.clearProgress(ProgressLayout.UNPACK_RUNTIME);
         }
     }
