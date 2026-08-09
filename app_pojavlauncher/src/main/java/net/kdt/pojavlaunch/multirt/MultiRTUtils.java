@@ -91,11 +91,23 @@ public class MultiRTUtils {
     public static void installRuntimeNamed(String nativeLibDir, InputStream runtimeInputStream, String name) throws IOException {
         File dest = new File(RUNTIME_FOLDER,"/"+name);
         if(dest.exists()) FileUtils.deleteDirectory(dest);
-        uncompressTarXZ(runtimeInputStream,dest);
-        runtimeInputStream.close();
-        unpack200(nativeLibDir,RUNTIME_FOLDER + "/" + name);
-        ProgressLayout.clearProgress(ProgressLayout.UNPACK_RUNTIME);
-        read(name);
+        try {
+            uncompressTarXZ(runtimeInputStream, dest);
+            ProgressLayout.setProgress(
+                    ProgressLayout.UNPACK_RUNTIME,
+                    0,
+                    R.string.global_unpacking,
+                    "Preparing runtime..."
+            );
+            unpack200(nativeLibDir, RUNTIME_FOLDER + "/" + name);
+            read(name);
+        } finally {
+            try {
+                runtimeInputStream.close();
+            } catch (IOException ignored) {
+            }
+            ProgressLayout.clearProgress(ProgressLayout.UNPACK_RUNTIME);
+        }
     }
 
     public static void postPrepare(String name) throws IOException {
@@ -298,11 +310,10 @@ public class MultiRTUtils {
             }
             tarEntry = tarIn.getNextTarEntry();
         }
-        } finally {
+    } finally {
             if (tarIn != null) {
                 try { tarIn.close(); } catch (IOException ignored) {}
             }
-            ProgressLayout.clearProgress(ProgressLayout.UNPACK_RUNTIME);
         }
     }
 }
