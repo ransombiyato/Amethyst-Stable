@@ -219,7 +219,6 @@ public class NewJREUtil {
     }
 
     public enum ExternalRuntime {
-        JRE_8(8, "External-8"),
         JRE_17(17, "External-17"),
         JRE_21(21, "External-21"),
         JRE_25(25, "External-25");

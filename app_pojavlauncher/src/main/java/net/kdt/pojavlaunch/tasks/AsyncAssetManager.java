@@ -30,36 +30,12 @@ public class AsyncAssetManager {
     private AsyncAssetManager(){}
 
     /**
-     * Attempt to install the java 8 runtime, if necessary
-     * @param am App context
+     * Automatically install missing external Java runtimes on first startup.
+     * @param ctx App context
      */
     public static void unpackRuntime(Context ctx) {
-        AssetManager am = ctx.getAssets();
-        /* Check if JRE is included */
-        String rt_version = null;
-        String current_rt_version = MultiRTUtils.readInternalRuntimeVersion("Internal");
-        try {
-            rt_version = Tools.read(am.open("components/jre/version"));
-        } catch (IOException e) {
-            Log.e("JREAuto", "JRE was not included on this APK.", e);
-        }
-        String exactJREName = MultiRTUtils.getExactJreName(8);
-        if(current_rt_version == null && exactJREName != null && !exactJREName.equals("Internal")/*this clause is for when the internal runtime is goofed*/) return;
-        if(rt_version == null) return;
-        if(rt_version.equals(current_rt_version)) return;
-
-        // Install the runtime in an async manner, hope for the best
-        String finalRt_version = rt_version;
         sExecutorService.execute(() -> {
-
             try {
-                MultiRTUtils.installRuntimeNamedBinpack(
-                        am.open("components/jre/universal.tar.xz"),
-                        am.open("components/jre/bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz"),
-                        "Internal", finalRt_version);
-                MultiRTUtils.postPrepare("Internal");
-
-                // Automatically download external runtimes on first setup
                 net.kdt.pojavlaunch.NewJREUtil.ExternalRuntime[] runtimes =
                         net.kdt.pojavlaunch.NewJREUtil.ExternalRuntime.values();
 
@@ -69,10 +45,18 @@ public class AsyncAssetManager {
                         total++;
                 }
 
+                if (total == 0) {
+                    ProgressLayout.setProgress(
+                            ProgressLayout.UNPACK_RUNTIME,
+                            100,
+                            "Java runtimes are already installed!"
+                    );
+                    return;
+                }
+
                 int index = 1;
 
                 for (net.kdt.pojavlaunch.NewJREUtil.ExternalRuntime rt : runtimes) {
-
                     if (MultiRTUtils.getExactJreName(rt.majorVersion) != null)
                         continue;
 
@@ -106,8 +90,8 @@ public class AsyncAssetManager {
                         100,
                         "Java runtime installation complete!"
                 );
-            }catch (IOException e) {
-                Log.e("JREAuto", "Internal JRE unpack failed", e);
+            } catch (Throwable t) {
+                Log.e("JREAuto", "Java runtime setup failed", t);
             }
         });
     }

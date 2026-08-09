@@ -1525,11 +1525,6 @@ public final class Tools {
     }
 
     public static void installMod(Activity activity, boolean customJavaArgs) {
-        if (MultiRTUtils.getExactJreName(8) == null) {
-            Toast.makeText(activity, R.string.multirt_nojava8rt, Toast.LENGTH_LONG).show();
-            return;
-        }
-
         if(!customJavaArgs){ // Launch the intent to get the jar file
             if(!(activity instanceof LauncherActivity))
                 throw new IllegalStateException("Cannot start Mod Installer without LauncherActivity");
