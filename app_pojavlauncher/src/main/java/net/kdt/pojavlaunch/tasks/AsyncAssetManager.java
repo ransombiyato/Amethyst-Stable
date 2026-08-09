@@ -33,7 +33,8 @@ public class AsyncAssetManager {
      * Attempt to install the java 8 runtime, if necessary
      * @param am App context
      */
-    public static void unpackRuntime(AssetManager am) {
+    public static void unpackRuntime(Context ctx) {
+        AssetManager am = ctx.getAssets();
         /* Check if JRE is included */
         String rt_version = null;
         String current_rt_version = MultiRTUtils.readInternalRuntimeVersion("Internal");
@@ -57,6 +58,54 @@ public class AsyncAssetManager {
                         am.open("components/jre/bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz"),
                         "Internal", finalRt_version);
                 MultiRTUtils.postPrepare("Internal");
+
+                // Automatically download external runtimes on first setup
+                net.kdt.pojavlaunch.NewJREUtil.ExternalRuntime[] runtimes =
+                        net.kdt.pojavlaunch.NewJREUtil.ExternalRuntime.values();
+
+                int total = 0;
+                for (net.kdt.pojavlaunch.NewJREUtil.ExternalRuntime rt : runtimes) {
+                    if (MultiRTUtils.getExactJreName(rt.majorVersion) == null)
+                        total++;
+                }
+
+                int index = 1;
+
+                for (net.kdt.pojavlaunch.NewJREUtil.ExternalRuntime rt : runtimes) {
+
+                    if (MultiRTUtils.getExactJreName(rt.majorVersion) != null)
+                        continue;
+
+                    String msg = "Installing Java Runtime "
+                            + rt.majorVersion
+                            + " ("
+                            + index
+                            + "/"
+                            + total
+                            + ")...";
+
+                    Log.i("JREAuto", msg);
+
+                    ProgressLayout.setProgress(
+                            ProgressLayout.UNPACK_RUNTIME,
+                            (index - 1) * 100 / total,
+                            msg
+                    );
+
+                    try {
+                        rt.downloadRuntime(ctx);
+                    } catch (Throwable t) {
+                        Log.e("JREAuto", "Failed downloading JRE " + rt.majorVersion, t);
+                    }
+
+                    index++;
+                }
+
+                ProgressLayout.setProgress(
+                        ProgressLayout.UNPACK_RUNTIME,
+                        100,
+                        "Java runtime installation complete!"
+                );
             }catch (IOException e) {
                 Log.e("JREAuto", "Internal JRE unpack failed", e);
             }
