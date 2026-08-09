@@ -237,6 +237,7 @@ public class MultiRTUtils {
 
     private static void uncompressTarXZ(final InputStream tarFileInputStream, final File dest) throws IOException {
         net.kdt.pojavlaunch.utils.FileUtils.ensureDirectory(dest);
+        try {
 
         byte[] buffer = new byte[8192];
         TarArchiveInputStream tarIn = new TarArchiveInputStream(
@@ -297,6 +298,9 @@ public class MultiRTUtils {
             }
             tarEntry = tarIn.getNextTarEntry();
         }
-        tarIn.close();
+        } finally {
+            try { tarIn.close(); } catch (IOException ignored) {}
+            ProgressLayout.clearProgress(ProgressLayout.UNPACK_RUNTIME);
+        }
     }
 }
